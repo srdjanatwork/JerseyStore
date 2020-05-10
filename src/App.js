@@ -2,12 +2,10 @@ import React from 'react';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 
 import { RouteList } from './lib/routes';
-import { getAllEntriesByConentType } from './utils/contentful';
 
-import Test from './views/Test';
-import Navigation from './components/Navigation';
-
-console.log('test', getAllEntriesByConentType('product'));
+import Navigation from 'components/Navigation';
+import Test from 'views/Test';
+import Home from 'views/Home';
 
 const App = () => {
   return (
@@ -16,7 +14,7 @@ const App = () => {
       <Router>
         <Switch>
           <Route exact path={ RouteList.home }>
-            
+            <Home />
           </Route>
           <Route path={ RouteList.test }>
             <Test />

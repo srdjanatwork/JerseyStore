@@ -1,10 +1,11 @@
 {
-  "name": "jersey-store",
+  "name": "client",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
     "@babel/core": "7.9.0",
     "@material-ui/core": "^4.9.13",
+    "@material-ui/icons": "^4.9.1",
     "@svgr/webpack": "4.3.3",
     "@testing-library/jest-dom": "^4.2.4",
     "@testing-library/react": "^9.3.2",
@@ -18,7 +19,6 @@
     "babel-preset-react-app": "^9.1.2",
     "camelcase": "^5.3.1",
     "case-sensitive-paths-webpack-plugin": "2.3.0",
-    "contentful": "^7.14.4",
     "css-loader": "3.4.2",
     "dotenv": "8.2.0",
     "dotenv-expand": "5.1.0",
@@ -139,5 +139,6 @@
     "presets": [
       "react-app"
     ]
-  }
+  },
+  "proxy": "http://localhost:3001"
 }
