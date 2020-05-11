@@ -2,6 +2,7 @@ import React from 'react';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 
 import { RouteList } from './lib/routes';
+import TeamsContextProvider from 'utils/context/TeamsContextProvider';
 
 import Navigation from 'components/Navigation';
 import Test from 'views/Test';
@@ -9,7 +10,7 @@ import Home from 'views/Home';
 
 const App = () => {
   return (
-    <div className="App">
+    <TeamsContextProvider>
       <Navigation />
       <Router>
         <Switch>
@@ -21,7 +22,7 @@ const App = () => {
           </Route>
         </Switch>
       </Router>
-    </div>
+    </TeamsContextProvider>
   );
 }
 
