@@ -1,12 +1,24 @@
 .navigation {
-  background-color: #8CD0E3;
+  background-color: var(--light-blue);
+  display: grid;
+  grid-template-columns: 33.33% 33.33% 33.33%;
+  grid-template-rows: 80px;
   width: 100%;
-  height: 80px;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
+}
+
+.someContent {
+  align-self: center;
+  justify-self: start;
+  margin-left: 20px;
+}
+
+.logo {
+  align-self: center;
+  justify-self: center;
 }
 
 .iconsWrapper {
+  align-self: center;
+  justify-self: end;
   margin-right: 20px;
 }

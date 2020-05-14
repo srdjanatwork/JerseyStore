@@ -3,13 +3,14 @@ import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 
 import { RouteList } from './lib/routes';
 
+import CountriesContextProvider from 'utils/context/CountriesContextProvider';
 import Navigation from 'components/Navigation';
 import Test from 'views/Test';
 import Home from 'views/Home';
 
 const App = () => {
   return (
-    <>
+    <CountriesContextProvider>
       <Navigation />
       <Router>
         <Switch>
@@ -21,7 +22,7 @@ const App = () => {
           </Route>
         </Switch>
       </Router>
-    </>
+    </CountriesContextProvider>
   );
 }
 

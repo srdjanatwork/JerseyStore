@@ -1,0 +1,40 @@
+@import 'utils/styles/mixins.scss';
+
+.filterSectionWrapper {
+  width: 250px;
+  padding: 20px;
+  box-sizing: border-box;
+}
+
+.filterSection {
+  box-sizing: border-box;
+}
+
+.countriesCheck {
+  display: grid;
+  grid-template-columns: 100%;
+}
+
+.selectLabel {
+  margin: 10px 0;
+  display: block;
+  font-weight: bold;
+}
+
+.button {
+  @include reset-button;
+  background-color: var(--accordion-gray);
+  padding: 0 10px;
+  margin-bottom: 10px;
+  width: 100%;
+}
+
+.buttonWrapper {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.accordion {
+  margin-left: 20px;
+}

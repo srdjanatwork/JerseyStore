@@ -13,8 +13,8 @@ const iconStyles = {
 const Navigation = () => {
   return (
     <div className={ styles.navigation }>
-      <div>Some content</div>
-      <div>Logo</div>
+      <div className={ styles.someContent }>Some content</div>
+      <div className={ styles.logo }>Logo</div>
       <div className={ styles.iconsWrapper }>
         <SearchIcon fontSize="large" />
         <AccountBoxIcon style={ iconStyles } fontSize="large" />
