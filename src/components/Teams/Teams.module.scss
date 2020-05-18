@@ -1,6 +1,18 @@
-.teams {
+@import 'utils/styles/mixins.scss';
+
+.teamWrapper {
   display: grid;
   grid-template-columns: 1fr 1fr 1fr;
   grid-gap: 20px;
   justify-items: center;
+}
+
+.button {
+  @include reset-button;
+  display: block;
+  margin: 20px auto 20px auto;
+  width: 150px;
+  padding: 10px 0;
+  text-align: center;
+  background-color: var(--yellow);
 }

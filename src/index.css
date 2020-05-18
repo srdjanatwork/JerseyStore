@@ -30,3 +30,7 @@ svg {
   fill: inherit;
   max-width: 100%;
 }
+
+.modal-open {
+  overflow: hidden;
+}

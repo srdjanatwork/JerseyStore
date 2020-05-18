@@ -8,7 +8,7 @@ const TeamsContextProvider = ({ children }) => {
   const [teams, setTeams] = useState([]);
   const res = useFetch(`/teams?startOffset=${offset}`);
   const response = res.response;
-  const resultsLength = response && response.length;
+  const allTeamsNumber = response && response.total;
 
   useEffect(() => {
     if (!response) {
@@ -17,14 +17,12 @@ const TeamsContextProvider = ({ children }) => {
     setTeams(teams => teams.concat(response.results))
   }, [response]);
 
-  console.log('response', response);
-
   return (
     <TeamsContext.Provider value={{
         offset,
         setOffset,
         teams,
-        resultsLength
+        allTeamsNumber
       }}>
       {children}
     </TeamsContext.Provider>

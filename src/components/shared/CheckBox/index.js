@@ -6,9 +6,9 @@ import styles from './Checkbox.module.scss';
 const Checkbox = ({ label, flag, handleCheck, isActive, reviewIcon }) => {
   const [isChecked, setCheked] = useState(false);
 
-  const toggleCheckboxChange = label => {
+  const toggleCheckboxChange = () => {
     setCheked(!isChecked);
-    handleCheck(!isChecked, label);
+    handleCheck(!isChecked);
   }
 
   return (
@@ -17,11 +17,11 @@ const Checkbox = ({ label, flag, handleCheck, isActive, reviewIcon }) => {
         type="checkbox"
         value={label}
         checked={isActive}
-        onChange={(label) => toggleCheckboxChange(label)}
+        onChange={label => toggleCheckboxChange(label)}
      />
       <span className={ styles.label }>{label}</span>
       { reviewIcon && <FavoriteSharpIcon style={{ fill: Colors.reviewedRating }} fontSize='small' /> }
-      { flag && <img className={ styles.flagImage } src={ flag } alt='' /> }
+      { flag && <img className={ styles.flagImage } src={ `images/countries/${flag}.png` } alt='' /> }
     </label>
   );
 }

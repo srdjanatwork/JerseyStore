@@ -1,0 +1,47 @@
+@import 'utils/styles/mixins.scss';
+
+.modalWrapper {
+  animation: opacity 1s ease;
+  background-color: rgba(0,0,0,.75);
+  height: 100vh;
+  left: 0;
+  position: fixed;
+  top: 0;
+  width: 100%;
+  z-index: 1;
+}
+
+@keyframes opacity {
+  0% {
+    background-color: rgba(0,0,0, 0);
+  }
+  100% {
+    background-color: rgba(0,0,0,.75);
+  }
+}
+
+.modalContent {
+  animation: color 1s ease;
+  background-color: rgba(255,255,255, 1);
+  height: calc(100% - 150px);
+  margin: 75px auto;
+  max-width: 900px;
+  position: relative;
+  z-index: 10;
+}
+
+@keyframes color {
+  0% {
+    background-color: rgba(255,255,255, 0);
+  }
+  100% {
+    background-color: rgba(255,255,255, 1);
+  }
+}
+
+.closeModalButton {
+  @include reset-button;
+  position: absolute;
+  right: 20px;
+  top: 20px;
+}

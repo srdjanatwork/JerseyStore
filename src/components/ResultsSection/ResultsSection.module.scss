@@ -1,0 +1,11 @@
+.found {
+  margin-bottom: 20px;
+  display: block;
+  text-align: center;
+  font-size: 20px;
+  font-weight: bold;
+
+  > span {
+    color: var(--light-blue);
+  }
+}

@@ -1,14 +1,24 @@
-import React from 'react';
-import { Link } from 'react-router-dom';
-import Rating from '../Rating'
-
+import React, { useState } from 'react';
+import Rating from 'components/Rating'
+import Modal from 'components/shared/Modal';
+import TeamView from 'components/TeamView';
 import styles from './Team.module.scss';
 
 const Team = ({ team }) => {
-  // console.log('data', team);
+  const [isOpen, setIsOpen] = useState(false);
+  const openTeamModal = () => {
+    document.body.classList.add('modal-open');
+    setIsOpen(true);
+  }
+
+  const closeModal = () => {
+    document.body.classList.remove('modal-open');
+    setIsOpen(false);
+  }
+
   return (
     <div className={ styles.team }>
-      <Link className={ styles.link } to="/">
+      <div className={ styles.viewButton } onClick={ openTeamModal }>
         <div className={ styles.imgWrapper }>
           <img className={ styles.img } src={ team.homeKit } alt='' />
           <span className={ styles.quickView }>Quick view</span>
@@ -24,7 +34,7 @@ const Team = ({ team }) => {
             <span>New</span>
           </div>
         }
-      </Link>
+      </div>
       <div>
         <button className={ styles.button }>
         <span className={ styles.purchase }>Purchase:</span>
@@ -39,6 +49,11 @@ const Team = ({ team }) => {
         }
         </button>
       </div>
+      { isOpen &&
+       <Modal closeModal={ closeModal }>
+         <TeamView team={ team } />
+       </Modal>
+      }
     </div>
   );
 }

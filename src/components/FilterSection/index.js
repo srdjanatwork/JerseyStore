@@ -1,34 +1,61 @@
-import React from 'react';
-
-import CheckBoxCountries from './CheckBoxCountries';
-import CheckBoxPrice from './CheckBoxPrice';
-import CheckBoxAvailability from './CheckBoxAvailability';
-import CheckBoxDiscount from './CheckBoxDiscount';
-import CheckBoxNew from './CheckBoxNew';
-import CheckBoxRating from './CheckBoxRating';
+import React, { useContext } from 'react';
+import CheckBoxSection from './CheckBoxSection';
+import { CountriesContext } from 'utils/context/CountriesContextProvider';
+import { filterData } from './data';
 
 import styles from './FilterSection.module.scss';
 
-const FilterSection = () => {
+const FilterSection = ({
+  handleCountriesFilter,
+  handlePriceFilter,
+  handleFilter
+}) => {
+  const countries = useContext(CountriesContext);
   return (
     <div className={ styles.filterSectionWrapper }>
        <div className={ styles.filterSection }>
-         <CheckBoxCountries />
+         <CheckBoxSection
+           data={ countries && countries }
+           label={ filterData.countries.label }
+           handleFilter={ handleCountriesFilter }
+           isCountryFilter
+          />
        </div>
        <div className={ styles.filterSection }>
-         <CheckBoxPrice />
+         <CheckBoxSection
+           data={ filterData.price.options }
+           label={ filterData.price.label }
+           handleFilter={ handlePriceFilter }
+         />
        </div>
        <div className={ styles.filterSection }>
-         <CheckBoxAvailability />
+         <CheckBoxSection
+           data={ filterData.availability.options }
+           label={ filterData.availability.label }
+           handleFilter={ handleFilter }
+         />
        </div>
        <div className={ styles.filterSection }>
-         <CheckBoxDiscount />
+         <CheckBoxSection
+           data={ filterData.discount.options }
+           label={ filterData.discount.label }
+           handleFilter={ handleFilter }
+          />
        </div>
        <div className={ styles.filterSection }>
-         <CheckBoxNew />
+         <CheckBoxSection
+           data={ filterData.new.options }
+           label={ filterData.new.label }
+           handleFilter={ handleFilter }
+          />
        </div>
        <div className={ styles.filterSection }>
-         <CheckBoxRating />
+         <CheckBoxSection
+           data={ filterData.rating.options }
+           label={ filterData.rating.label }
+           handleFilter={ handleFilter }
+           reviewIcon
+         />
        </div>
     </div>
   );

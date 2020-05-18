@@ -47,8 +47,12 @@
   margin-bottom: 10px;
 }
 
+.viewButton,
 .button {
   @include reset-button;
+}
+
+.button {
   width: 100%;
   margin-top: 10px;
   background-color: var(--light-blue);
@@ -86,7 +90,7 @@
   justify-content: center;
 }
 
-.link:hover {
+.viewButton:hover {
   .img {
     opacity: 0.5;
     transform: translate(0,5px) scale(1.06);

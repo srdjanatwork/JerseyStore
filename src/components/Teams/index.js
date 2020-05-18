@@ -1,12 +1,14 @@
 import React from 'react';
-import Team from 'components/shared/Team';
+import Team from 'components/Team';
 import styles from './Teams.module.scss';
 
-const Teams = ({ data }) => {
-  // console.log('data', data);
+const Teams = ({ results, allTeamsNumber, loadMore }) => {
   return (
     <div className={ styles.teams }>
-      { data.map(team => <Team key={ team.name } team={ team } />) }
+      <div className={ styles.teamWrapper }>{ results.map(team => <Team key={ team.name } team={ team } />) }</div>
+      { (allTeamsNumber && (allTeamsNumber !== results.length)) &&
+        <button className={ styles.button } onClick={ loadMore }>Load more...</button>
+      }
     </div>
   );
 }
