@@ -1,4 +1,5 @@
 import React, { useContext, useState } from 'react';
+import classNames from 'classnames';
 import AnimateHeight from 'react-animate-height';
 import AddIcon from '@material-ui/icons/Add';
 import RemoveIcon from '@material-ui/icons/Remove';
@@ -9,6 +10,7 @@ import styles from './FilterSection.module.scss';
 const CheckBoxCountries = () => {
   const countries = useContext(CountriesContext);
   const [height, setHeight] = useState(0);
+  const [expandAllOpt, setExpandAllOpt] = useState(false);
 
   const handleCountriesCheck = (checked, index) => {
     console.log('checked', checked, index);
@@ -17,6 +19,15 @@ const CheckBoxCountries = () => {
   const toggle = () => {
     setHeight(height === 0 ? 'auto' : 0);
   }
+
+  const expandFilter = () => {
+    setExpandAllOpt(!expandAllOpt);
+  }
+
+  const optionClasses = classNames({
+      [styles.options]: true,
+      [styles.optionsExpand]: expandAllOpt === true
+    });
 
   return (
     <div>
@@ -32,14 +43,21 @@ const CheckBoxCountries = () => {
         className={ styles.accordion }
       >
         { countries ? countries.map((country, index) => (
-            <CheckBox
-              key={ country.name }
-              label={ country.name }
-              flag={ country.flag }
-              handleCheck={ (checked) => handleCountriesCheck(index, checked) }
-            />
+            <div key={ country.name } className={ optionClasses }>
+              <CheckBox
+                label={ country.name }
+                flag={ country.flag }
+                handleCheck={ (checked) => handleCountriesCheck(index, checked) }
+              />
+            </div>
           )) : ''
         }
+        <button
+          className={ styles.loadMoreButton }
+          onClick={ expandFilter }
+        >
+          { expandAllOpt ? 'Less countries...' : 'More countries...' }
+        </button>
       </AnimateHeight>
     </div>
   )

@@ -12,6 +12,7 @@
   overflow: hidden;
   padding: 0;
   text-align: inherit;
+  cursor: pointer;
 
   &:not([disabled]) {
     cursor: pointer;

@@ -1,5 +1,25 @@
+@import 'utils/styles/mixins.scss';
+
 .home {
   padding-top: 50px;
   display: grid;
   grid-template-columns: 250px auto;
 }
+
+.teamsSection {
+  padding: 20px 60px;
+}
+
+.button {
+  @include reset-button;
+  display: block;
+  margin: 20px auto 20px auto;
+  width: 150px;
+  padding: 10px 0;
+  text-align: center;
+  background-color: var(--yellow);
+}
+
+// .button:disabled {
+//   cursor:not-allowed
+// }

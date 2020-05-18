@@ -4,6 +4,8 @@
   width: 250px;
   padding: 20px;
   box-sizing: border-box;
+  position: sticky;
+  top: 0;
 }
 
 .filterSection {
@@ -37,4 +39,28 @@
 
 .accordion {
   margin-left: 20px;
+}
+
+.options {
+  position: static;
+
+  &:nth-child(n + 6) {
+    transition: opacity 1s ease-out;
+    opacity: 0;
+    height: 0;
+    overflow: hidden;
+  }
+}
+
+.optionsExpand {
+  &:nth-child(n + 5) {
+    opacity: 1;
+    height: auto;
+  }
+}
+
+.loadMoreButton {
+  @include reset-button;
+  margin: 10px 0;
+  color: var(--light-blue);
 }

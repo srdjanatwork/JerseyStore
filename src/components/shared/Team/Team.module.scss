@@ -1,0 +1,98 @@
+@import 'utils/styles/mixins.scss';
+
+.team {
+  height: 320px;
+  text-align: center;
+  width: 100%;
+  padding: 10px;
+  position: relative;
+}
+
+.imgWrapper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.img {
+  opacity: 1;
+  height: 180px;
+  margin: 0 auto;
+  margin-bottom: 10px;
+  transition: opacity 0.5s ease-in-out;
+  transition: transform .2s ease-out 0s;
+  transform: translate(0,0);
+}
+
+.quickView {
+  position: absolute;
+  top: 90px;
+  left: 0;
+  width: 100%;
+  opacity: 0;
+  transition: opacity 0.5s ease-in-out;
+  padding: 10px 0;
+  font-weight: bold;
+}
+
+.icon {
+  height: 30px;
+  margin-left: 10px;
+}
+
+.titleWrapper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 10px;
+}
+
+.button {
+  @include reset-button;
+  width: 100%;
+  margin-top: 10px;
+  background-color: var(--light-blue);
+  padding: 10px 0;
+
+  .price {
+    font-weight: bold;
+  }
+
+  .oldPrice,
+  .price {
+    margin: 0 2px;
+  }
+}
+
+.purchase {
+  +.price {
+    font-weight: bold;
+  }
+}
+
+.discount {
+  font-weight: bold;
+}
+
+.new {
+  position: absolute;
+  top: 0;
+  left: 0;
+  background: var(--yellow);
+  width: 60px;
+  height: 30px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.link:hover {
+  .img {
+    opacity: 0.5;
+    transform: translate(0,5px) scale(1.06);
+  }
+
+  .quickView {
+    opacity: 1;
+  }
+}
