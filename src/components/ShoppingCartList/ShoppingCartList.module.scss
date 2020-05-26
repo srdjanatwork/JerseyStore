@@ -1,0 +1,61 @@
+@import 'utils/styles/mixins.scss';
+
+.shoppingCartListWrapper {
+  margin-top: 30px;
+}
+
+.image {
+  width: 100px;
+  height: 100px;
+  flex-grow: 0;
+}
+
+.shoppingCartListInner {
+  margin-bottom: 20px;
+  display: flex;
+}
+
+.shoppingCartListContent {
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.countryImage {
+  width: 15px;
+  height: 15px;
+  border-radius: 50%;
+  margin-left: 5px;
+}
+
+.countryFlagWrapper {
+  display: flex;
+  align-items: center;
+}
+
+.priceWrapper {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 30px;
+  margin-bottom: 30px;
+
+  > span {
+    font-weight: bold;
+    font-size: 18px;
+  }
+}
+
+.teamInfo {
+  width: 150px;
+  text-align: left;
+  margin-bottom: 10px;
+}
+
+.jerseyName {
+  font-size: 16px;
+  margin-bottom: 10px;
+}
+
+.countryName {
+  font-size: 12px;
+}

@@ -121,28 +121,6 @@
   }
 }
 
-.quantityWrapper {
-  display: flex;
-  border: 1px solid black;
-  margin-top: 10px;
-}
-
-.quantityButton {
-  @include reset-button;
-  height: 30px;
-  width: 30px;
-}
-
-.input {
-  border: 0;
-  padding: 0;
-  height: 100%;
-  text-align: center;
-  width: 30px;
-  font-size: 16px;
-  background: transparent;
-}
-
 .addCardButton {
   @include reset-button;
   width: 150px;

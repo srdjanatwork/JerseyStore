@@ -1,34 +1,28 @@
 import React, { useState, useContext } from 'react';
 import { CountriesContext } from 'utils/context/CountriesContextProvider';
+import ShoppingCartContext from 'utils/context/ShoppingCartProvider';
 import Rating from 'components/Rating';
-import Input from 'components/shared/Input';
+import CounterInput from 'components/shared/CounterInput';
 import styles from './TeamView.module.scss';
 
 const TeamView = ({ team }) => {
   const countries = useContext(CountriesContext);
+  const {
+    actions: { addToCart }
+  } = useContext(ShoppingCartContext);
   const [isHomeJersey, setIsHomeJersey] = useState(true);
-  const [count, setCount] = useState(1);
+  const [counter, setCounterNum] = useState();
 
   const changeJersey = () => {
     setIsHomeJersey(!isHomeJersey);
   }
 
-  const changeCount = (type) => {
-    if (type === 'decrease') {
-      setCount(count => count - 1);
+  const setCounter = (num) => {
+    setCounterNum(num);
+  }
 
-      if (count < 2) {
-        setCount(1);
-      }
-    }
-
-    if (type === 'increase') {
-      setCount(count => count + 1);
-
-      if (count > 9) {
-        setCount(10);
-      }
-    }
+  const addToCartHandler = () => {
+    addToCart(team, counter);
   }
 
   let country = countries.find(country => country.id === team.countryId);
@@ -82,22 +76,8 @@ const TeamView = ({ team }) => {
             </span>
           }
         </div>
-        <div className={ styles.quantityWrapper }>
-          <button className={ styles.quantityButton } onClick={ () => changeCount('decrease') }>-</button>
-          <Input
-            elementType='input'
-            elementConfig={{
-              'type': 'number',
-              'min': '1',
-              'max': '10'
-            }}
-            value={ count }
-            className={ styles.input }
-            onChangeHandler={ () => {} }
-          />
-          <button className={ styles.quantityButton } onClick={ () => changeCount('increase') }>+</button>
-        </div>
-        <button className={ styles.addCardButton } onClick={ () => {} }>Add to card</button>
+        <CounterInput setCounter={ setCounter } />
+        <button className={ styles.addCardButton } onClick={ addToCartHandler }>Add to card</button>
       </div>
     </div>
   );

@@ -1,7 +1,10 @@
-import React from 'react';
+import React, { useState } from 'react';
 import AccountBoxIcon from '@material-ui/icons/AccountBox';
 import SearchIcon from '@material-ui/icons/Search';
 import ShoppingCartIcon from '@material-ui/icons/ShoppingCart';
+import { ShoppingCartConsumer } from 'utils/context/ShoppingCartProvider';
+import Modal from 'components/shared/Modal';
+import ShoppingCart from 'components/ShoppingCart';
 
 import styles from './Navigation.module.scss';
 
@@ -11,16 +14,43 @@ const iconStyles = {
 }
 
 const Navigation = () => {
+  const [isOpenedModal, setIsOpenedModal] = useState(false);
+  const openShoppingCartModal = () => {
+    setIsOpenedModal(true);
+    document.body.classList.add('modal-open');
+  }
+
+  const closeModal = () => {
+    setIsOpenedModal(false);
+    document.body.classList.remove('modal-open');
+  }
   return (
-    <div className={ styles.navigation }>
-      <div className={ styles.someContent }>Some content</div>
-      <div className={ styles.logo }>Logo</div>
-      <div className={ styles.iconsWrapper }>
-        <SearchIcon fontSize="large" />
-        <AccountBoxIcon style={ iconStyles } fontSize="large" />
-        <ShoppingCartIcon fontSize="large" />
-      </div>
-    </div>
+    <ShoppingCartConsumer>
+      {({ cartInfo }) => {
+        return (
+          <div className={ styles.navigation }>
+           <div className={ styles.someContent }>Some content</div>
+           <div className={ styles.logo }>Logo</div>
+           <div className={ styles.iconsWrapper }>
+             <SearchIcon fontSize="large" />
+             <AccountBoxIcon style={ iconStyles } fontSize="large" />
+             <button className={ styles.shoppingCartButton } onClick={ openShoppingCartModal }>
+               <ShoppingCartIcon fontSize="large" />
+               { cartInfo.jerseys.length > 0 && <span className={ styles.count }>{ cartInfo.jerseys.length }</span> }
+             </button>
+           </div>
+           { isOpenedModal &&
+           <Modal
+             isShoppingCartModal
+             closeModal={ closeModal }
+            >
+             <ShoppingCart cartInfo={ cartInfo } />
+           </Modal>
+           }
+         </div>
+        );
+      }}
+     </ShoppingCartConsumer>
   );
 }
 

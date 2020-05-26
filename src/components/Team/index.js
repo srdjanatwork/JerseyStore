@@ -1,4 +1,5 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
+import ShoppingCartContext from 'utils/context/ShoppingCartProvider';
 import Rating from 'components/Rating'
 import Modal from 'components/shared/Modal';
 import TeamView from 'components/TeamView';
@@ -6,6 +7,10 @@ import styles from './Team.module.scss';
 
 const Team = ({ team }) => {
   const [isOpen, setIsOpen] = useState(false);
+  const {
+    actions: { addToCart }
+  } = useContext(ShoppingCartContext);
+
   const openTeamModal = () => {
     document.body.classList.add('modal-open');
     setIsOpen(true);
@@ -14,6 +19,11 @@ const Team = ({ team }) => {
   const closeModal = () => {
     document.body.classList.remove('modal-open');
     setIsOpen(false);
+  }
+
+  const purchase = () => {
+    const startJerseyCount = 1;
+    addToCart(team, startJerseyCount);
   }
 
   return (
@@ -36,7 +46,7 @@ const Team = ({ team }) => {
         }
       </div>
       <div>
-        <button className={ styles.button }>
+        <button onClick={ purchase } className={ styles.button }>
         <span className={ styles.purchase }>Purchase:</span>
         <span className={ team.discount ? styles.oldPrice : styles.price }>
           { team.discount ? <del className={ styles.oldPrice }>{ team.price }€</del> : `${team.price}€` }

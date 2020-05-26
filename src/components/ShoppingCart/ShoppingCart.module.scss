@@ -1,0 +1,40 @@
+@import 'utils/styles/mixins.scss';
+
+.shoppingCartWrapper {
+  padding: 80px 15px 15px 15px;
+  box-sizing: border-box;
+  height: 100%;
+}
+
+.buttonLinkWrapper {
+  display: flex;
+  justify-content: space-between;
+  font-size: 12px;
+}
+
+.button {
+  @include reset-button;
+}
+
+.button,
+.link {
+  color: var(--light-blue);
+  text-decoration: underline;
+  font-weight: bold;
+}
+
+.contentWrapper {
+  text-align: center;
+}
+
+.title {
+  text-align: center;
+  margin-top: 40px;
+  margin-bottom: 5px;
+  font-size: 20px;
+}
+
+.emptyText {
+  margin-top: 50px;
+  font-size: 24px;
+}

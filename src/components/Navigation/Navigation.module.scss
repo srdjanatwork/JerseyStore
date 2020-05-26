@@ -1,3 +1,5 @@
+@import 'utils/styles/mixins.scss';
+
 .navigation {
   background-color: var(--light-blue);
   display: grid;
@@ -21,4 +23,23 @@
   align-self: center;
   justify-self: end;
   margin-right: 20px;
+  display: flex;
+  position: relative;
+}
+
+.count {
+  align-items: center;
+  background-color: var(--yellow);
+  border-radius: 50%;
+  display: flex;
+  height: 20px;
+  justify-content: center;
+  position: absolute;
+  right: -5px;
+  top: -10px;
+  width: 20px;
+}
+
+.shoppingCartButton {
+  @include reset-button;
 }

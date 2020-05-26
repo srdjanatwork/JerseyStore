@@ -1,11 +1,23 @@
-import React from 'react';
-import FavoriteSharpIcon from '@material-ui/icons/FavoriteSharp';
-// import styles from './Test.module.scss';
+import React, { useEffect, useState } from 'react';
 
 const Test = () => {
+  const [value, setValue] = useState(
+    localStorage.getItem('myValueInLocalStorage') || ''
+  );
+
+  useEffect(() => {
+    localStorage.setItem('myValueInLocalStorage', value);
+  }, [value]);
+
+  const onChange = event => setValue(event.target.value);
+
   return (
     <div>
-      <FavoriteSharpIcon style={{ fill: '#e3f6fa' }} fontSize='small' />
+      <h1>Hello React with Local Storage!</h1>
+
+      <input value={value} type="text" onChange={onChange} />
+
+      <p>{value}</p>
     </div>
   );
 }
