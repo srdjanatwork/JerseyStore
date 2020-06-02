@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { Link } from 'react-router-dom';
 import AccountBoxIcon from '@material-ui/icons/AccountBox';
 import SearchIcon from '@material-ui/icons/Search';
 import ShoppingCartIcon from '@material-ui/icons/ShoppingCart';
@@ -24,6 +25,7 @@ const Navigation = () => {
     setIsOpenedModal(false);
     document.body.classList.remove('modal-open');
   }
+
   return (
     <ShoppingCartConsumer>
       {({ cartInfo }) => {
@@ -33,7 +35,9 @@ const Navigation = () => {
            <div className={ styles.logo }>Logo</div>
            <div className={ styles.iconsWrapper }>
              <SearchIcon fontSize="large" />
-             <AccountBoxIcon style={ iconStyles } fontSize="large" />
+             <Link to='/login'>
+               <AccountBoxIcon style={ iconStyles } fontSize="large" />
+             </Link>
              <button className={ styles.shoppingCartButton } onClick={ openShoppingCartModal }>
                <ShoppingCartIcon fontSize="large" />
                { cartInfo.jerseys.length > 0 && <span className={ styles.count }>{ cartInfo.jerseys.length }</span> }
@@ -44,7 +48,7 @@ const Navigation = () => {
              isShoppingCartModal
              closeModal={ closeModal }
             >
-             <ShoppingCart cartInfo={ cartInfo } />
+             <ShoppingCart closeModal={ closeModal } cartInfo={ cartInfo } />
            </Modal>
            }
          </div>

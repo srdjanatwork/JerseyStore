@@ -1,0 +1,39 @@
+.shoppingCartListInner {
+  margin-bottom: 20px;
+  display: flex;
+}
+
+.image {
+  width: 100px;
+  height: 100px;
+  flex-grow: 0;
+}
+
+.shoppingCartListContent {
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.teamInfo {
+  width: 150px;
+  text-align: left;
+  margin-bottom: 10px;
+}
+
+.jerseyName {
+  font-size: 16px;
+  margin-bottom: 10px;
+}
+
+.countryImage {
+  width: 15px;
+  height: 15px;
+  border-radius: 50%;
+  margin-left: 5px;
+}
+
+.countryFlagWrapper {
+  display: flex;
+  align-items: center;
+}

@@ -1,33 +1,32 @@
-import React, { useState, useEffect, useContext } from 'react';
-import ShoppingCartContext from 'utils/context/ShoppingCartProvider';
+import React, { useState, useEffect } from 'react';
 import Input from 'components/shared/Input';
 import styles from './CounterInput.module.scss';
 
+const MIN_VALUE = 1;
+const MAX_VALUE = 10;
+
 const CounterInput = ({ setCounter, jerseyCount }) => {
   const [count, setCountState] = useState(jerseyCount ? jerseyCount : 1);
-  const {
-    actions: { updateCounter }
-  } = useContext(ShoppingCartContext);
 
   const changeCount = (type) => {
     if (type === 'decrease') {
       setCountState(count => count - 1);
 
-      if (count < 2) {
-        setCountState(1);
-        setCounter(1);
+      if (count < (MIN_VALUE + 1)) {
+        setCountState(MIN_VALUE);
+        setCounter(MIN_VALUE);
       }
     }
 
     if (type === 'increase') {
       setCountState(count => count + 1);
 
-      if (count > 9) {
-        setCountState(10);
-        setCounter(10);
+      if (count > (MAX_VALUE - 1)) {
+        setCountState(MAX_VALUE);
+        setCounter(MAX_VALUE);
       }
    }
- }
+  }
 
   useEffect(() => {
     setCounter(count);
@@ -44,7 +43,7 @@ const CounterInput = ({ setCounter, jerseyCount }) => {
           'max': '10'
         }}
         value={ count }
-        className={ styles.input }
+        className={ styles.counterInput }
         onChangeHandler={ () => {} }
       />
       <button className={ styles.quantityButton } onClick={ () => changeCount('increase') }>+</button>

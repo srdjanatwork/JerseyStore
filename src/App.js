@@ -7,8 +7,11 @@ import CountriesContextProvider from 'utils/context/CountriesContextProvider';
 import TeamsContextProvider from 'utils/context/TeamsContextProvider';
 import { ShoppingCartProvider } from 'utils/context/ShoppingCartProvider';
 import Navigation from 'components/Navigation';
-import Test from 'views/Test';
 import Home from 'views/Home';
+import Cart from 'views/Cart';
+import Login from 'views/Login';
+import Register from 'views/Register';
+import Test from 'views/Test';
 
 const App = () => {
   return (
@@ -20,6 +23,15 @@ const App = () => {
             <Switch>
               <Route exact path={ RouteList.home }>
                 <Home />
+              </Route>
+              <Route path={ RouteList.cart }>
+                <Cart />
+              </Route>
+              <Route path={ RouteList.login }>
+                <Login />
+              </Route>
+              <Route path={ RouteList.register }>
+                <Register />
               </Route>
               <Route path={ RouteList.test }>
                 <Test />

@@ -3,9 +3,10 @@ import { CountriesContext } from 'utils/context/CountriesContextProvider';
 import ShoppingCartContext from 'utils/context/ShoppingCartProvider';
 import Rating from 'components/Rating';
 import CounterInput from 'components/shared/CounterInput';
+import Clickable from 'components/shared/Clickable';
 import styles from './TeamView.module.scss';
 
-const TeamView = ({ team }) => {
+const TeamView = ({ team, closeModal }) => {
   const countries = useContext(CountriesContext);
   const {
     actions: { addToCart }
@@ -23,6 +24,7 @@ const TeamView = ({ team }) => {
 
   const addToCartHandler = () => {
     addToCart(team, counter);
+    closeModal();
   }
 
   let country = countries.find(country => country.id === team.countryId);
@@ -39,7 +41,14 @@ const TeamView = ({ team }) => {
     <div className={ styles.container }>
       <div className={ styles.imageWrapper }>
         <img src={ isHomeJersey ? team.homeKit : team.awayKit } alt='' />
-        <button className={ styles.changeJerseyButton } onClick={ changeJersey }>View { text }</button>
+        <Clickable
+          tag='button'
+          className={ styles.changeJerseyButton }
+          onClick={ changeJersey }
+          transparent
+        >
+          View { text }
+        </Clickable>
       </div>
       <div className={ styles.contentWrapper }>
         { team.new && <span className={ styles.new }>New</span> }
@@ -77,7 +86,13 @@ const TeamView = ({ team }) => {
           }
         </div>
         <CounterInput setCounter={ setCounter } />
-        <button className={ styles.addCardButton } onClick={ addToCartHandler }>Add to card</button>
+        <Clickable
+          tag='button'
+          className={ styles.addCardButton }
+          onClick={ addToCartHandler }
+        >
+          Add to card
+        </Clickable>
       </div>
     </div>
   );

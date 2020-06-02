@@ -5,6 +5,7 @@ import { usePrevious } from 'utils/useRef';
 import AddIcon from '@material-ui/icons/Add';
 import RemoveIcon from '@material-ui/icons/Remove';
 import CheckBox from 'components/shared/CheckBox';
+import Clickable from 'components/shared/Clickable';
 import styles from './FilterSection.module.scss';
 
 
@@ -92,9 +93,14 @@ const CheckBoxSection = ({ data, label, reviewIcon, isCountryFilter, handleFilte
           ))
         }
         { isCountryFilter &&
-          <button className={ styles.loadMoreButton } onClick={ expandFilter }>
+          <Clickable
+            tag='button'
+            className={ styles.loadMoreButton }
+            onClick={ expandFilter }
+            transparent
+          >
             { expandAllCountries ? 'Less countries...' : 'More countries...' }
-          </button>
+          </Clickable>
         }
       </AnimateHeight>
     </>

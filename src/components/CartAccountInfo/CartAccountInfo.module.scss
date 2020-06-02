@@ -1,0 +1,17 @@
+.userInfo {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.userInfoLogIn {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.loginLink {
+  text-decoration: underline;
+  font-weight: bold;
+  display: inline;
+}

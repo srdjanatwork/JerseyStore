@@ -17,13 +17,9 @@
 }
 
 .changeJerseyButton {
-  @include reset-button;
-  background-color: var(--light-blue);
-  margin-top: 20px;
-  margin: 0 auto;
-  margin-top: 25px;
-  padding: 10px 0;
+  margin: 25px auto 0 auto;
   width: 120px;
+  text-decoration: underline;
 }
 
 .contentWrapper {
@@ -100,6 +96,7 @@
 
 .priceWrapper {
   margin-top: 20px;
+  margin-bottom: 10px;
 
   .price {
     font-weight: bold;

@@ -1,9 +1,7 @@
 @import 'utils/styles/mixins.scss';
 
 .removeButton {
-  @include reset-button;
-  text-decoration: underline;
-  font-size: 12px;
+  font-size: 14px;
 }
 
 .controlWrapper {

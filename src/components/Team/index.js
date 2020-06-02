@@ -3,6 +3,7 @@ import ShoppingCartContext from 'utils/context/ShoppingCartProvider';
 import Rating from 'components/Rating'
 import Modal from 'components/shared/Modal';
 import TeamView from 'components/TeamView';
+import Clickable from 'components/shared/Clickable';
 import styles from './Team.module.scss';
 
 const Team = ({ team }) => {
@@ -46,22 +47,26 @@ const Team = ({ team }) => {
         }
       </div>
       <div>
-        <button onClick={ purchase } className={ styles.button }>
-        <span className={ styles.purchase }>Purchase:</span>
-        <span className={ team.discount ? styles.oldPrice : styles.price }>
-          { team.discount ? <del className={ styles.oldPrice }>{ team.price }€</del> : `${team.price}€` }
-        </span>
-        {
-          team.discount &&
-          <span className={ styles.discount }>
-            { `${team.discount}€` }
+        <Clickable
+          tag='button'
+          onClick={ purchase }
+          className={ styles.button }
+        >
+          <span className={ styles.purchase }>Purchase:</span>
+          <span className={ team.discount ? styles.oldPrice : styles.price }>
+            { team.discount ? <del className={ styles.oldPrice }>{ team.price }€</del> : `${team.price}€` }
           </span>
-        }
-        </button>
+          {
+            team.discount &&
+            <span className={ styles.discount }>
+              { `${team.discount}€` }
+            </span>
+          }
+        </Clickable>
       </div>
       { isOpen &&
        <Modal closeModal={ closeModal }>
-         <TeamView team={ team } />
+         <TeamView closeModal={ closeModal } team={ team } />
        </Modal>
       }
     </div>
@@ -69,3 +74,10 @@ const Team = ({ team }) => {
 }
 
 export default Team;
+
+// localStorage.setItem('testObject', JSON.stringify(testObject));
+//
+// // Retrieve the object from storage
+// var retrievedObject = localStorage.getItem('testObject');
+//
+// console.log('retrievedObject: ', JSON.parse(retrievedObject));

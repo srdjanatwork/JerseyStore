@@ -1,41 +1,42 @@
-import React, { useContext } from 'react';
-import { CountriesContext } from 'utils/context/CountriesContextProvider';
-import ShoppingCartControl from 'components/ShoppingCartControl';
+import React from 'react';
+import { Link } from 'react-router-dom';
+import ShoppingCartControls from 'components/ShoppingCartControls';
+import CartAccountInfo from 'components/CartAccountInfo';
+import Clickable from 'components/shared/Clickable';
 import styles from './ShoppingCartList.module.scss';
 
-const ShoppingCartList = ({ cartInfo }) => {
-  const countries = useContext(CountriesContext);
-
-  const getCountryInfo = (jersey) => {
-    let country = countries.find(country => country.id === jersey.countryId);
-    let countryInfo = country && (
-      <div className={ styles.countryFlagWrapper }>
-        <span className={ styles.countryName }>{ country.name }</span>
-        <img className={ styles.countryImage } src={`images/countries/${country.id}.png`} alt='' />
-      </div>
-    );
-
-    return countryInfo;
+const ShoppingCartList = ({ cartInfo, closeModal }) => {
+  const closeModalHandler = () => {
+    closeModal();
   }
+
+  const isUser = false;
 
   return (
     <div className={ styles.shoppingCartListWrapper }>
-      { cartInfo.jerseys.map((jersey, index) => (
-        <div key={ jersey.id + index + jersey.name } className={ styles.shoppingCartListInner }>
-          <img className={ styles.image } src={ jersey.homeKit } alt='' />
-          <div className={ styles.shoppingCartListContent }>
-            <div className={ styles.teamInfo }>
-              <span className={ styles.jerseyName }>{ jersey.name }</span>
-              { getCountryInfo(jersey) }
-            </div>
-            <ShoppingCartControl cartItemIndex={ index } jersey={ jersey }/>
-          </div>
-        </div>
-      ))}
+      <ShoppingCartControls cartInfo={ cartInfo } />
       <div className={ styles.priceWrapper }>
-        <span>Total:</span>
+        <span>Subtotal:</span>
         <span>{ cartInfo.total }€</span>
       </div>
+      <Clickable
+        tag={ Link }
+        onClick={ closeModalHandler }
+        className={ styles.link }
+        to='/cart'
+        transparent
+      >
+        VIEW FULL SHOPPING BAG
+      </Clickable>
+      { !isUser && <CartAccountInfo closeModal={ closeModalHandler } /> }
+      <Clickable
+        tag={ Link }
+        className={ styles.checkoutLink }
+        to='/checkout'
+        disabled={ !isUser }
+      >
+        Checkout
+      </Clickable>
     </div>
   );
 }

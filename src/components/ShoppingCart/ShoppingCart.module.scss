@@ -12,13 +12,7 @@
   font-size: 12px;
 }
 
-.button {
-  @include reset-button;
-}
-
-.button,
-.link {
-  color: var(--light-blue);
+.clickableLink {
   text-decoration: underline;
   font-weight: bold;
 }

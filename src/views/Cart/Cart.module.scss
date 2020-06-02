@@ -1,0 +1,103 @@
+@import 'utils/styles/mixins.scss';
+
+.shoppingCartControls {
+  width: 500px;
+}
+
+.shoppingCartContainer {
+  padding: 50px 30px 30px 30px;
+}
+
+.shoppingCartTitle {
+  text-align: center;
+  font-size: 30px;
+  font-weight: bold;
+  padding: 15px 0;
+  background-color: #e3f6fa;
+  margin-bottom: 40px;
+}
+
+.shoppingCartWrapper {
+  display: flex;
+  justify-content: space-between;
+}
+
+.priceWrapper {
+  width: 400px;
+  border: 1px solid var(--light-blue);
+  padding: 20px;
+}
+
+.item {
+  margin: 10px;
+  display: flex;
+  justify-content: space-between;
+}
+
+.infoWrapper + .item {
+  margin: 10px;
+  display: flex;
+  justify-content: space-between;
+
+  span {
+    font-weight: bold;
+  }
+}
+
+.infoWrapper {
+  padding-bottom: 20px;
+  border-bottom: 1px solid var(--light-blue);
+}
+
+.checkoutLink {
+  width: 100%;
+  display: block;
+  margin: 40px auto 40px auto;
+  padding: 10px 0;
+  text-align: center;
+}
+
+.checkoutLinkDisabled {
+  background-color: var(--disabled-button-gray);
+  cursor: default;
+  pointer-events: none;
+}
+
+.checkoutLinkEnabled {
+  background-color: var(--yellow);
+  cursor: pointer;
+  transition: background-color 0.5s ease-in-out;
+
+  &:hover {
+    background-color: var(--light-blue);
+  }
+}
+
+.userLoginInfo {
+  margin-top: 20px;
+}
+
+.couponButton,
+.shipping {
+  @include reset-button;
+  text-decoration: underline;
+  cursor: pointer;
+}
+
+.couponForm {
+  margin: 10px;
+}
+
+.couponInput {
+  width: 100%;
+  margin: 10px 0;
+  padding: 5px;
+}
+
+.applyButton {
+  background-color: var(--disabled-button-gray);
+  cursor: default;
+  pointer-events: none;
+  padding: 5px 0;
+  width: 70px;
+}

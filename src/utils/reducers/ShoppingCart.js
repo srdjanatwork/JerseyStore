@@ -20,7 +20,7 @@ export const shoppingCartReducer = (state, action) => {
           if(item.id === current.id) {
             item.jerseyCount = item.jerseyCount + current.jerseyCount
             return item;
-          }
+          } else return null;
         });
         if (!x) {
           return acc.concat([current]);
@@ -35,14 +35,17 @@ export const shoppingCartReducer = (state, action) => {
         total: countTotal(filteredArr)
       };
     case REMOVE_JERSEY:
+      const updateArr = state.jerseys.filter((_jerey, i) => action.payload.jerseyId !== i);
+
       return {
         ...initialState,
-        jerseys: state.jerseys.filter((_jerey, i) => action.payload.jerseyId !== i),
-        total: countTotal(state.jerseys)
+        jerseys: updateArr,
+        total: countTotal(updateArr)
       }
     case UPDATE_JERSEY:
       const arr = [...state.jerseys];
       arr[action.payload.itemIndex].jerseyCount = action.payload.updateCount;
+
       return {
         ...initialState,
         jerseys: arr,
@@ -61,6 +64,6 @@ const countTotal = (jerseys) => {
       priceArr.push(jersey.discount ? (jersey.jerseyCount * jersey.discount) : (jersey.jerseyCount * jersey.price))
     );
   })
-  const totalPrice = priceArr.reduce(reducer)
+  const totalPrice = priceArr.length > 0 && priceArr.reduce(reducer)
   return totalPrice;
 }

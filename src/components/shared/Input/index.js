@@ -51,10 +51,10 @@ const Input = ({ value, elementConfig, onChangeHandler, elementType, label, clas
   }
 
   return (
-    <div className={ styles.Input }>
+    <>
       { label && <label className={ styles.Label }>{ label }</label> }
       { inputEl }
-    </div>
+    </>
   );
 }
 

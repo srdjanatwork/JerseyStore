@@ -1,0 +1,30 @@
+@import 'utils/styles/mixins.scss';
+
+.clickable {
+  @include reset-button;
+  display: block;
+  padding: 10px 0;
+  background-color: var(--yellow);
+  cursor: pointer;
+  transition: background-color 0.5s ease-in-out;
+
+  &:hover {
+    background-color: var(--light-blue);
+  }
+}
+
+.clickableDisabled {
+  background-color: var(--disabled-button-gray);
+  cursor: default;
+  pointer-events: none;
+}
+
+.transparent {
+  transition: none;
+  background-color: transparent;
+  color: var(--light-blue);
+
+  &:hover {
+    background-color: transparent;
+  }
+}

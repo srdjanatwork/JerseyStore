@@ -60,7 +60,5 @@
 }
 
 .loadMoreButton {
-  @include reset-button;
   margin: 10px 0;
-  color: var(--light-blue);
 }
