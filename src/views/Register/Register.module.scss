@@ -1,0 +1,60 @@
+.register {
+  box-sizing: border-box;
+  height: calc(100vh - 80px);
+  padding-top: 50px;
+  width: 100%;
+}
+
+.title {
+  font-size: 20px;
+  text-align: center;
+  margin-bottom: 30px;
+}
+
+.form {
+  display: flex;
+  margin: 0 auto;
+  width: 400px;
+  flex-direction: column;
+}
+
+.registerInputWrapper {
+  display: inline-flex;
+  flex-direction: column;
+  margin-bottom: 20px;
+  position: relative;
+}
+
+.registerInput,
+.registerFileInput {
+  margin-top: 10px;
+}
+
+.registerInput {
+  padding: 10px 5px;
+}
+
+.birthWrapper {
+  display: flex;
+  justify-content: flex-start;
+
+  .registerInputWrapper:not(:last-child) {
+    margin-right: 10px;
+  }
+
+  .registerInputWrapper:first-child {
+    width: 50px;
+  }
+}
+
+.createAccountButton {
+  text-align: center;
+  margin-bottom: 50px;
+}
+
+.showHidePassButton {
+  padding: 0;
+  position: absolute;
+  right: 0;
+  width: 20px;
+}

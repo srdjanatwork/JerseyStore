@@ -10,5 +10,20 @@ input[type=number] {
 }
 
 .Label {
-  color: var(--input-label-gray);
+  color: var(--light-blue);
+}
+
+.selectElement {
+  margin-top: 10px;
+  padding: 5px;
+  cursor: pointer;
+}
+
+.error {
+  color: var(--error-red);
+  margin-top: 5px;
+}
+
+.errorInput {
+  border: 1px solid var(--error-red);
 }

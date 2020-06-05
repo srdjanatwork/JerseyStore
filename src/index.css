@@ -34,3 +34,7 @@ svg {
 .modal-open {
   overflow: hidden;
 }
+
+textarea:focus, input:focus{
+  outline: none;
+}
