@@ -19,7 +19,7 @@ const Input = ({ value, elementConfig, elementType, label, className, register, 
             className={ inputClasses }
             ref={ register(name === INPUT_NAME.avatar ? null : {
               required,
-              maxLength: 20,
+              maxLength: 30,
               minLength: 2,
               pattern: (name === INPUT_NAME.email) ? REGEX.email : ((name === INPUT_NAME.firstName || name === INPUT_NAME.lastName)) ? REGEX.onlyLetter : null
              })

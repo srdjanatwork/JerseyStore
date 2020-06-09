@@ -6,6 +6,7 @@ import { RouteList } from './lib/routes';
 import CountriesContextProvider from 'utils/context/CountriesContextProvider';
 import TeamsContextProvider from 'utils/context/TeamsContextProvider';
 import { ShoppingCartProvider } from 'utils/context/ShoppingCartProvider';
+import { AuthContextProvider } from 'utils/context/AuthContextProvider';
 import Navigation from 'components/Navigation';
 import Home from 'views/Home';
 import Cart from 'views/Cart';
@@ -15,32 +16,34 @@ import Test from 'views/Test';
 
 const App = () => {
   return (
-    <ShoppingCartProvider>
-      <CountriesContextProvider>
-        <TeamsContextProvider>
-          <Router>
-            <Navigation />
-            <Switch>
-              <Route exact path={ RouteList.home }>
-                <Home />
-              </Route>
-              <Route path={ RouteList.cart }>
-                <Cart />
-              </Route>
-              <Route path={ RouteList.login }>
-                <Login />
-              </Route>
-              <Route path={ RouteList.register }>
-                <Register />
-              </Route>
-              <Route path={ RouteList.test }>
-                <Test />
-              </Route>
-            </Switch>
-          </Router>
-        </TeamsContextProvider>
-      </CountriesContextProvider>
-    </ShoppingCartProvider>
+    <AuthContextProvider>
+      <ShoppingCartProvider>
+        <CountriesContextProvider>
+          <TeamsContextProvider>
+            <Router>
+              <Navigation />
+              <Switch>
+                <Route exact path={ RouteList.home }>
+                  <Home />
+                </Route>
+                <Route path={ RouteList.cart }>
+                  <Cart />
+                </Route>
+                <Route path={ RouteList.login }>
+                  <Login />
+                </Route>
+                <Route path={ RouteList.register }>
+                  <Register />
+                </Route>
+                <Route path={ RouteList.test }>
+                  <Test />
+                </Route>
+              </Switch>
+            </Router>
+          </TeamsContextProvider>
+        </CountriesContextProvider>
+      </ShoppingCartProvider>
+    </AuthContextProvider>
   );
 }
 

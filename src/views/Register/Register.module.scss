@@ -34,19 +34,6 @@
   padding: 10px 5px;
 }
 
-.birthWrapper {
-  display: flex;
-  justify-content: flex-start;
-
-  .registerInputWrapper:not(:last-child) {
-    margin-right: 10px;
-  }
-
-  .registerInputWrapper:first-child {
-    width: 50px;
-  }
-}
-
 .createAccountButton {
   text-align: center;
   margin-bottom: 50px;
@@ -57,4 +44,9 @@
   position: absolute;
   right: 0;
   width: 20px;
+}
+
+.verificationEmail {
+  display: block;
+  margin-bottom: 20px;
 }
