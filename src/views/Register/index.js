@@ -3,6 +3,7 @@ import { useForm } from "react-hook-form";
 import { withRouter } from "react-router";
 import VisibilityIcon from '@material-ui/icons/Visibility';
 import VisibilityOffIcon from '@material-ui/icons/VisibilityOff'
+import { RouteList } from 'lib/routes';
 import Input from 'components/shared/Input';
 import Clickable from 'components/shared/Clickable';
 import app from '../../base';
@@ -10,6 +11,7 @@ import styles from './Register.module.scss';
 
 const Register = ({ history }) => {
   const [isShownPass, setIsShown] = useState(false);
+  const [errorMsg, setErrorMsg] = useState(null);
   const { register, handleSubmit, errors, formState, getValues } = useForm({ mode: 'onChange' });
   const { dirty } = formState;
 
@@ -26,26 +28,39 @@ const Register = ({ history }) => {
           let file = getValues('avatar');
           let avatar = file && file[0];
           let storageRef = avatar && app.storage().ref(`${rootName}/${getValues('firstName')}-${avatar.name}`);
+          /* eslint-disable no-unused-vars */
           let uploadTask = storageRef && storageRef.put(avatar);
+          /* eslint-disable no-unused-vars */
 
-          if(user){
+          if (user) {
             user.updateProfile({
-               displayName: getValues('firstName'),
-               photoURL: avatar ? `${getValues('firstName')}-${avatar.name}` : null
+               displayName: `${getValues('firstName')} ${getValues('lastName')}`,
+               photoURL: avatar ? `${getValues('firstName')}-${avatar.name}` : null,
             })
           }
 
-          alert("Verification email sent to " + getValues('email'));
-          history.push('/login');
+          history.push({
+            pathname: RouteList.login,
+            state: {
+              msg: `Verification email sent to ${getValues('email')}`,
+              prevPath: RouteList.register
+            }
+          });
+        }).catch(error => {
+          setErrorMsg(error.message);
         })
       } catch (error) {
-        alert(error);
+        console.log('error', error);
       }
   }, [history, getValues]);
 
   const handlePassVisibility = (event) => {
     event.preventDefault();
     setIsShown(!isShownPass);
+  }
+
+  const onChangeHandler = () => {
+    setErrorMsg(null);
   }
 
   return (
@@ -60,6 +75,7 @@ const Register = ({ history }) => {
             className={ styles.registerInput }
             register={ register }
             errors={ errors }
+            onChangeHandler={ onChangeHandler }
             required
           />
         </div>
@@ -71,6 +87,7 @@ const Register = ({ history }) => {
             className={ styles.registerInput }
             register={ register }
             errors={ errors }
+            onChangeHandler={ onChangeHandler }
             required
           />
         </div>
@@ -86,6 +103,7 @@ const Register = ({ history }) => {
               "type": "file",
               "accept": "image/png, image/jpeg"
             }}
+            onChangeHandler={ onChangeHandler }
           />
         </div>
         <div className={ styles.registerInputWrapper }>
@@ -96,6 +114,7 @@ const Register = ({ history }) => {
             className={ styles.registerInput }
             register={ register }
             errors={ errors }
+            onChangeHandler={ onChangeHandler }
             required
           />
         </div>
@@ -116,9 +135,11 @@ const Register = ({ history }) => {
             elementConfig={{ "type": isShownPass ? "text" : "password" }}
             register={ register }
             errors={ errors }
+            onChangeHandler={ onChangeHandler }
             required
           />
         </div>
+        <span className={ styles.errorMsg }>{ errorMsg }</span>
         <Clickable
           tag='button'
           className={ styles.createAccountButton }

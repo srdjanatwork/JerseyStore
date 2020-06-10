@@ -1,6 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import InfoIcon from '@material-ui/icons/Info';
+import { RouteList } from 'lib/routes';
 import Clickable from 'components/shared/Clickable';
 import styles from './CartAccountInfo.module.scss';
 
@@ -9,7 +10,7 @@ const CartAccountInfo = ({ closeModal }) => {
     <Clickable
       tag={ Link }
       className={ styles.loginLink }
-      to='/login'
+      to={ RouteList.login }
       transparent
       onClick={ closeModal }
     >log in</Clickable>
@@ -19,7 +20,7 @@ const CartAccountInfo = ({ closeModal }) => {
     <Clickable
       tag={ Link }
       className={ styles.loginLink }
-      to='/login'
+      to={ RouteList.login }
       transparent
       onClick={ closeModal }
     >

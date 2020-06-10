@@ -1,13 +1,16 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import AccountBoxIcon from '@material-ui/icons/AccountBox';
-import PersonIcon from '@material-ui/icons/Person';
 import SearchIcon from '@material-ui/icons/Search';
 import ShoppingCartIcon from '@material-ui/icons/ShoppingCart';
 import { ShoppingCartConsumer } from 'utils/context/ShoppingCartProvider';
 import { AuthContextConsumer } from 'utils/context/AuthContextProvider';
+import { RouteList } from 'lib/routes';
 import Modal from 'components/shared/Modal';
 import ShoppingCart from 'components/ShoppingCart';
+import Profile from 'components/Profile';
+import ProfileAvatar from 'components/ProfileAvatar';
+import Clickable from 'components/shared/Clickable';
 import app from '../../base';
 
 import styles from './Navigation.module.scss';
@@ -18,16 +21,23 @@ const iconStyles = {
 }
 
 const Navigation = () => {
-  const [isOpenedModal, setIsOpenedModal] = useState(false);
+  const [isOpenedShoppingModal, setIsOpenedShoppingModal] = useState(false);
+  const [isOpenedProfileModal, setIsOpenedProfileModal] = useState(false);
   const [imgSrc, setImgSrc] = useState(null);
 
   const openShoppingCartModal = () => {
-    setIsOpenedModal(true);
+    setIsOpenedShoppingModal(true);
+    document.body.classList.add('modal-open');
+  }
+
+  const openProfileModal = () => {
+    setIsOpenedProfileModal(true);
     document.body.classList.add('modal-open');
   }
 
   const closeModal = () => {
-    setIsOpenedModal(false);
+    setIsOpenedShoppingModal(false);
+    setIsOpenedProfileModal(false);
     document.body.classList.remove('modal-open');
   }
 
@@ -39,16 +49,12 @@ const Navigation = () => {
     <AuthContextConsumer>
       {({ currentUser }) => {
         let storageRef = app.storage().ref();
+        /* eslint-disable no-unused-vars */
         let spaceRef = currentUser && currentUser.photoURL && storageRef.child(`images/${ currentUser.photoURL }`);
+        /* eslint-disable no-unused-vars */
         if (currentUser && currentUser.photoURL) {
           storageRef.child(`images/${ currentUser.photoURL }`).getDownloadURL().then(url => setUrl(url))
         }
-        console.log('currentUser', currentUser);
-
-        const noImgStyle = {
-          width: '30px',
-          height: '30px'
-        };
 
         return (
           <ShoppingCartConsumer>
@@ -56,28 +62,50 @@ const Navigation = () => {
               return (
                 <div className={ styles.navigation }>
                   <div className={ styles.someContent }>Some content</div>
-                  <div className={ styles.logo }>Logo</div>
+                  <Clickable
+                    tag={ Link }
+                    className={ styles.logo }
+                    to={ RouteList.home }
+                    transparent
+                  >
+                    Logo
+                  </Clickable>
                   <div className={ styles.iconsWrapper }>
                     <SearchIcon fontSize="large" />
                     { (currentUser && currentUser.emailVerified) ?
-                      <button className={ styles.profileButton }>
-                        { currentUser.photoURL ?
-                          <img src={ imgSrc } alt='' /> :
-                          <PersonIcon style={noImgStyle} />
-                        }
+                      <button onClick={ openProfileModal } className={ styles.profileButton }>
+                        <ProfileAvatar
+                          currentUser={ currentUser }
+                          imgSrc={ imgSrc }
+                          isSmall
+                        />
                       </button>
                       :
-                      <Link to='/login'>
+                      <Clickable
+                        tag={ Link }
+                        to={ RouteList.login }
+                        className={ styles.profileNoSignIn }
+                        transparent
+                      >
                         <AccountBoxIcon style={ iconStyles } fontSize="large" />
-                      </Link> }
+                      </Clickable> }
                     <button className={ styles.shoppingCartButton } onClick={ openShoppingCartModal }>
                       <ShoppingCartIcon fontSize="large" />
                       { cartInfo.jerseys.length > 0 && <span className={ styles.count }>{ cartInfo.jerseys.length }</span> }
                     </button>
                   </div>
-                 { isOpenedModal &&
-                 <Modal isShoppingCartModal closeModal={ closeModal }>
+                 { isOpenedShoppingModal &&
+                 <Modal isOnRightSide closeModal={ closeModal }>
                    <ShoppingCart closeModal={ closeModal } cartInfo={ cartInfo } />
+                 </Modal>
+                 }
+                 { isOpenedProfileModal &&
+                 <Modal isOnRightSide closeModal={ closeModal }>
+                   <Profile
+                     currentUser={ currentUser }
+                     imgSrc={ imgSrc }
+                     closeModal={ closeModal }
+                    />
                  </Modal>
                  }
                </div>

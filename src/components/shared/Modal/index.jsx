@@ -3,14 +3,14 @@ import classNames from 'classnames';
 import CloseIcon from '@material-ui/icons/Close';
 import styles from './Modal.module.scss';
 
-const Modal = ({ children, closeModal, isShoppingCartModal }) => {
+const Modal = ({ children, closeModal, isOnRightSide }) => {
   const stopPropagation = (e) => {
     e.stopPropagation();
   }
 
   const modalContentClasses = classNames({
     [styles.modalContent]: true,
-    [styles.modalContentShoppingCart]: isShoppingCartModal
+    [styles.modalContentShoppingCart]: isOnRightSide
   });
 
   return (

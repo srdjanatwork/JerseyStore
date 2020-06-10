@@ -1,8 +1,6 @@
 import React from 'react';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
-
 import { RouteList } from './lib/routes';
-
 import CountriesContextProvider from 'utils/context/CountriesContextProvider';
 import TeamsContextProvider from 'utils/context/TeamsContextProvider';
 import { ShoppingCartProvider } from 'utils/context/ShoppingCartProvider';
@@ -12,6 +10,9 @@ import Home from 'views/Home';
 import Cart from 'views/Cart';
 import Login from 'views/Login';
 import Register from 'views/Register';
+import RegisterFinal from 'views/RegisterFinal';
+import Checkout from 'views/Checkout';
+import NoMatch from 'views/NoMatch';
 import Test from 'views/Test';
 
 const App = () => {
@@ -35,8 +36,17 @@ const App = () => {
                 <Route path={ RouteList.register }>
                   <Register />
                 </Route>
+                <Route path={ RouteList.registerFinal }>
+                  <RegisterFinal />
+                </Route>
+                <Route path={ RouteList.checkout }>
+                  <Checkout />
+                </Route>
                 <Route path={ RouteList.test }>
                   <Test />
+                </Route>
+                <Route>
+                  <NoMatch />
                 </Route>
               </Switch>
             </Router>

@@ -26,6 +26,7 @@ const Input = ({ value, elementConfig, elementType, label, className, register, 
             }
             name={ name }
             { ...elementConfig }
+            onChange={ onChangeHandler }
           />
           { errors[name]?.type === 'required' && <span className={ styles.error }>{`${ label } is required`}</span> }
           { errors[name]?.type === 'maxLength' && <span className={ styles.error }>{ label } is too long (maximum is 20 characters)</span> }

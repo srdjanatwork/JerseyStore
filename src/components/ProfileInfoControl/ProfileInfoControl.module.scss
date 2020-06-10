@@ -1,0 +1,42 @@
+.test {
+  padding: 10px 0;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-direction: column;
+}
+
+.editButton {
+  width: 60px;
+  text-align: center;
+  font-weight: bold;
+  text-decoration: underline;
+}
+
+.displayInfo {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  align-items: center;
+}
+
+.buttonWrapper {
+  display: flex;
+}
+
+.info {
+  display: block;
+}
+
+.bold {
+  font-weight: bold;
+}
+
+.editInput {
+  padding: 5px;
+  margin-right: auto;
+}
+
+.editCancelWrapper {
+  display: flex;
+}

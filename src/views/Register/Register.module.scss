@@ -50,3 +50,9 @@
   display: block;
   margin-bottom: 20px;
 }
+
+.errorMsg {
+  display: block;
+  color: var(--error-red);
+  margin: 10px 0;
+}

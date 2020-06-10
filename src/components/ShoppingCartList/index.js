@@ -1,5 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import { AuthContextConsumer } from 'utils/context/AuthContextProvider';
+import { RouteList } from 'lib/routes';
 import ShoppingCartControls from 'components/ShoppingCartControls';
 import CartAccountInfo from 'components/CartAccountInfo';
 import Clickable from 'components/shared/Clickable';
@@ -10,34 +12,41 @@ const ShoppingCartList = ({ cartInfo, closeModal }) => {
     closeModal();
   }
 
-  const isUser = false;
-
   return (
-    <div className={ styles.shoppingCartListWrapper }>
-      <ShoppingCartControls cartInfo={ cartInfo } />
-      <div className={ styles.priceWrapper }>
-        <span>Subtotal:</span>
-        <span>{ cartInfo.total }€</span>
-      </div>
-      <Clickable
-        tag={ Link }
-        onClick={ closeModalHandler }
-        className={ styles.link }
-        to='/cart'
-        transparent
-      >
-        VIEW FULL SHOPPING BAG
-      </Clickable>
-      { !isUser && <CartAccountInfo closeModal={ closeModalHandler } /> }
-      <Clickable
-        tag={ Link }
-        className={ styles.checkoutLink }
-        to='/checkout'
-        disabled={ !isUser }
-      >
-        Checkout
-      </Clickable>
-    </div>
+    <AuthContextConsumer>
+      {({ currentUser }) => {
+        console.log('currentUser', currentUser);
+        return (
+          <div className={ styles.shoppingCartListWrapper }>
+            <ShoppingCartControls cartInfo={ cartInfo } />
+            <div className={ styles.priceWrapper }>
+              <span>Subtotal:</span>
+              <span>{ cartInfo.total }€</span>
+            </div>
+            <Clickable
+              tag={ Link }
+              onClick={ closeModalHandler }
+              className={ styles.link }
+              to={ RouteList.cart }
+              transparent
+            >
+              VIEW FULL SHOPPING BAG
+            </Clickable>
+            { !currentUser && <CartAccountInfo closeModal={ closeModalHandler } /> }
+            { (currentUser && !currentUser.emailVerified) && <span className={ styles.verifyMsg }>Please verify your email</span> }
+            <Clickable
+              tag={ Link }
+              className={ styles.checkoutLink }
+              to={ RouteList.checkout }
+              disabled={ !currentUser || (currentUser && !currentUser.emailVerified) }
+              onClick={ closeModalHandler }
+            >
+              Checkout
+            </Clickable>
+          </div>
+        );
+      }}
+    </AuthContextConsumer>
   );
 }
 

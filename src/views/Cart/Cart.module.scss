@@ -2,6 +2,7 @@
 
 .shoppingCartControls {
   width: 500px;
+  padding-right: 30px;
 }
 
 .shoppingCartContainer {
@@ -57,22 +58,6 @@
   text-align: center;
 }
 
-.checkoutLinkDisabled {
-  background-color: var(--disabled-button-gray);
-  cursor: default;
-  pointer-events: none;
-}
-
-.checkoutLinkEnabled {
-  background-color: var(--yellow);
-  cursor: pointer;
-  transition: background-color 0.5s ease-in-out;
-
-  &:hover {
-    background-color: var(--light-blue);
-  }
-}
-
 .userLoginInfo {
   margin-top: 20px;
 }
@@ -100,4 +85,10 @@
   pointer-events: none;
   padding: 5px 0;
   width: 70px;
+}
+
+.verifyMsg {
+  display: block;
+  color: var(--error-red);
+  margin: 10px 0;
 }

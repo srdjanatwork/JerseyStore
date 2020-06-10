@@ -1,0 +1,23 @@
+.profileWrapper {
+  padding: 80px 15px 15px 15px;
+}
+
+.profileInfoWrapper {
+  margin: 0 auto;
+}
+
+.button {
+  width: 160px;
+  padding: 10px 0;
+  text-align: center;
+  margin-top: 50px;
+}
+
+.buttonWrapper {
+  display: flex;
+  justify-content: center;
+
+  .button:first-child {
+    margin-right: 20px;
+  }
+}

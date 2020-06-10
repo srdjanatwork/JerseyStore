@@ -17,6 +17,7 @@
 .logo {
   align-self: center;
   justify-self: center;
+  color: var(--black);
 }
 
 .iconsWrapper {
@@ -48,11 +49,15 @@
 }
 
 .profileButton {
-  width: 30px;
-  height: 30px;
+  width: 40px;
+  height: 40px;
   border-radius: 50%;
 
   > img {
     height: 100%;
   }
+}
+
+.profileNoSignIn {
+  color: var(--black);
 }
