@@ -4,12 +4,34 @@ import { REGEX } from 'lib/regex';
 import { INPUT_NAME } from 'lib/inputName';
 import styles from './Input.module.scss';
 
-const Input = ({ value, elementConfig, elementType, label, className, register, required, name, errors, onChangeHandler }) => {
+const Input = ({ value, elementConfig, elementType, label, className, register, required, name, errors, onChangeHandler, isProfileError }) => {
   let inputEl = null;
 
   const inputClasses = classNames({
     [styles.errorInput]: errors && errors[name],
   }, className);
+
+  const errorClasses = classNames({
+    [styles.error]: true,
+    [styles.errorLeftAligned] : isProfileError
+  }, className);
+
+  const checkPattern = (name) => {
+    switch(name) {
+      case(INPUT_NAME.email):
+        return REGEX.email;
+      break;
+      case(INPUT_NAME.firstName || INPUT_NAME.lastName):
+        return REGEX.onlyLetter;
+      break;
+      case(INPUT_NAME.fullName):
+        return REGEX.fullName;
+      break;
+      default:
+       return null;
+      break;
+    }
+  }
 
   switch(elementType) {
     case('input'):
@@ -18,11 +40,11 @@ const Input = ({ value, elementConfig, elementType, label, className, register, 
           <input
             className={ inputClasses }
             ref={ register(name === INPUT_NAME.avatar ? null : {
-              required,
-              maxLength: 30,
-              minLength: 2,
-              pattern: (name === INPUT_NAME.email) ? REGEX.email : ((name === INPUT_NAME.firstName || name === INPUT_NAME.lastName)) ? REGEX.onlyLetter : null
-             })
+                required,
+                maxLength: 30,
+                minLength: 2,
+                pattern: checkPattern(name)
+              })
             }
             name={ name }
             { ...elementConfig }
@@ -32,9 +54,11 @@ const Input = ({ value, elementConfig, elementType, label, className, register, 
           { errors[name]?.type === 'maxLength' && <span className={ styles.error }>{ label } is too long (maximum is 20 characters)</span> }
           { errors[name]?.type === 'minLength' && <span className={ styles.error }>{ label } is too short (minimum is 2 characters)</span> }
           { errors[name]?.type === 'pattern' && (name === INPUT_NAME.firstName || name === INPUT_NAME.lastName) &&
-          <span className={ styles.error }>Only letters are allowed</span> }
+          <span className={ errorClasses }>Only letters are allowed</span> }
           { errors[name]?.type === 'pattern' && name === INPUT_NAME.email &&
-          <span className={ styles.error }>Please enter a valid email</span> }
+          <span className={ errorClasses }>Please enter a valid email</span> }
+          { errors[name]?.type === 'pattern' && name === INPUT_NAME.fullName &&
+          <span className={ errorClasses }>Please enter a valid full name</span> }
         </>
       ) : (
         <input

@@ -10,7 +10,7 @@ import Home from 'views/Home';
 import Cart from 'views/Cart';
 import Login from 'views/Login';
 import Register from 'views/Register';
-import RegisterFinal from 'views/RegisterFinal';
+import EmailVerified from 'views/EmailVerified';
 import Checkout from 'views/Checkout';
 import NoMatch from 'views/NoMatch';
 import Test from 'views/Test';
@@ -36,8 +36,8 @@ const App = () => {
                 <Route path={ RouteList.register }>
                   <Register />
                 </Route>
-                <Route path={ RouteList.registerFinal }>
-                  <RegisterFinal />
+                <Route path={ RouteList.emailVerified }>
+                  <EmailVerified />
                 </Route>
                 <Route path={ RouteList.checkout }>
                   <Checkout />

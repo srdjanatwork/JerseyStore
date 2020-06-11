@@ -4,18 +4,23 @@ import { getParameterByName } from 'utils/helpers/getParamByName';
 import { RouteList } from 'lib/routes';
 import Clickable from 'components/shared/Clickable';
 import app from '../../base';
-import styles from './RegisterFinal.module.scss';
+import styles from './EmailVerified.module.scss';
 
-const RegisterFinal = ({ history }) => {
+const EmailVerified = () => {
   const [confirmationMsg, setConfirmationMsg] = useState();
+  const [errorMsg, setErrorMsg] = useState();
 
   const handleVerifyEmail = (auth, actionCode) => {
     auth.applyActionCode(actionCode).then(
-      resp => setConfirmationMsg('You have registered successfully. Please log in')
-    );
+      resp => {
+        console.log('resp', resp);
+        return setConfirmationMsg('Your email is verified. Please log in');
+      }
+    ).catch(error => setErrorMsg(error.message));
   }
 
   useEffect(() => {
+    app.auth().signOut();
     let actionCode = getParameterByName('oobCode');
     handleVerifyEmail(app.auth(), actionCode)
   }, []);
@@ -31,9 +36,10 @@ const RegisterFinal = ({ history }) => {
         >
           Go to log in
         </Clickable>
+        { errorMsg }
       </div>
     </div>
   );
 }
 
-export default RegisterFinal;
+export default EmailVerified;

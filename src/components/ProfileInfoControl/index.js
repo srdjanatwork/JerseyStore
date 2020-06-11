@@ -4,28 +4,38 @@ import Clickable from 'components/shared/Clickable';
 import Input from 'components/shared/Input';
 import styles from './ProfileInfoControl.module.scss';
 
-const ProfileInfoControl = ({ info, infoLabel }) => {
+const ProfileInfoControl = ({ info, infoLabel, sendUpdatedInfo, setIsShownHandler }) => {
   const [isShownInput, setIsShown] = useState(false);
-  const { register, errors, formState, getValues } = useForm({ mode: 'onChange' });
-  const { dirty } = formState;
+  const [disableSave, setDisableSave] = useState();
+  const { register, errors, getValues } = useForm({ mode: 'onChange' });
+  const [inputValue, setInputValue] = useState('');
 
   const editHandler = () => {
     setIsShown(true);
-    console.log('EDIT')
+    if (!getValues(infoLabel)) {
+      setDisableSave(true);
+      setIsShownHandler(true);
+    }
   }
 
   const cancelHandler = () => {
     setIsShown(false);
-    console.log('CANCEL')
   }
 
-  const onChangeHandler = () => {
-    console.log('ON CHANGE');
+  const onChangeHandler = (event) => {
+    if (Object.keys(errors).length === 0 && errors.constructor === Object) {
+      setDisableSave(false);
+    } else {
+      setDisableSave(true);
+    }
+
+    setIsShownHandler(isShownInput);
   }
 
   const saveHandler = () => {
+    setInputValue(getValues(infoLabel));
+    sendUpdatedInfo(getValues(infoLabel), infoLabel);
     setIsShown(false);
-    console.log('SAVE');
   }
 
   return (
@@ -33,9 +43,10 @@ const ProfileInfoControl = ({ info, infoLabel }) => {
       <div className={ styles.displayInfo }>
         { info &&
           <h1 className={ styles.info }>
-            { infoLabel }: <span className={ styles.bold }>{ info }</span>
+            <span className={ styles.label }>{ infoLabel }</span> : <span className={ styles.bold }>{ inputValue !== '' ? inputValue : info }</span>
           </h1> }
         <div className={ styles.buttonWrapper }>
+          { !isShownInput &&
           <Clickable
             tag='button'
             onClick={ editHandler }
@@ -43,13 +54,14 @@ const ProfileInfoControl = ({ info, infoLabel }) => {
             transparent
           >
             Edit
-          </Clickable>
+          </Clickable> }
           { isShownInput &&
             <div className={ styles.editCancelWrapper }>
               <Clickable
                 tag='button'
                 onClick={ saveHandler }
                 className={ styles.editButton }
+                disabled={ disableSave }
                 transparent
               >
                 Save
@@ -74,6 +86,7 @@ const ProfileInfoControl = ({ info, infoLabel }) => {
           register={ register }
           errors={ errors }
           onChangeHandler={ onChangeHandler }
+          isProfileError
         />
       }
     </div>

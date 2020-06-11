@@ -3,7 +3,7 @@ export const RouteList = {
   cart: '/cart',
   login: '/login',
   register: '/register',
-  registerFinal: '/register-final',
+  emailVerified: '/email-verified',
   checkout: '/checkout',
   test: '/test'
 };

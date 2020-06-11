@@ -42,7 +42,7 @@ const Register = ({ history }) => {
           history.push({
             pathname: RouteList.login,
             state: {
-              msg: `Verification email sent to ${getValues('email')}`,
+              msg: `Verification link sent to ${getValues('email')}`,
               prevPath: RouteList.register
             }
           });

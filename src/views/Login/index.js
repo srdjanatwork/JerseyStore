@@ -35,6 +35,7 @@ const Login = ({ history }) => {
         app.auth().signInWithEmailAndPassword(getValues('email'), getValues('password'))
         .then(() => {
           const user = app.auth().currentUser;
+          console.log('curre', user);
           if (user.emailVerified) {
             setIsVerified(true);
             addToUser(user);
