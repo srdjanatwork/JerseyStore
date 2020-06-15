@@ -35,7 +35,7 @@ const Register = ({ history }) => {
           if (user) {
             user.updateProfile({
                displayName: `${getValues('firstName')} ${getValues('lastName')}`,
-               photoURL: avatar ? `${getValues('firstName')}-${avatar.name}` : null,
+               photoURL: avatar ? `${getValues('firstName')} ${getValues('lastName')}-${avatar.name}` : null,
             })
           }
 
@@ -46,6 +46,16 @@ const Register = ({ history }) => {
               prevPath: RouteList.register
             }
           });
+
+          // const db = app.firestore();
+          // const userUid = app.auth().currentUser.uid;
+          // const userRef = db.collection("users").doc(userUid).set({
+          //   info: {
+          //     firstName: getValues('firstName'),
+          //     lastName: getValues('lastName'),
+          //     email: getValues('email')
+          //   }
+          // });
         }).catch(error => {
           setErrorMsg(error.message);
         })
@@ -69,7 +79,6 @@ const Register = ({ history }) => {
       <form className={ styles.form } onSubmit={ handleSubmit(onSubmit) }>
         <div className={ styles.registerInputWrapper }>
           <Input
-            elementType='input'
             label='First Name'
             name='firstName'
             className={ styles.registerInput }
@@ -81,7 +90,6 @@ const Register = ({ history }) => {
         </div>
         <div className={ styles.registerInputWrapper }>
           <Input
-            elementType='input'
             label='Last Name'
             name='lastName'
             className={ styles.registerInput }
@@ -93,7 +101,6 @@ const Register = ({ history }) => {
         </div>
         <div className={ styles.registerInputWrapper }>
           <Input
-            elementType='input'
             label='Profile picture'
             name='avatar'
             register={ register }
@@ -108,7 +115,6 @@ const Register = ({ history }) => {
         </div>
         <div className={ styles.registerInputWrapper }>
           <Input
-            elementType='input'
             label='Email'
             name='email'
             className={ styles.registerInput }
@@ -120,7 +126,6 @@ const Register = ({ history }) => {
         </div>
         <div className={ styles.registerInputWrapper }>
           <Clickable
-            tag='button'
             onClick={ handlePassVisibility }
             className={ styles.showHidePassButton }
             transparent
@@ -128,7 +133,6 @@ const Register = ({ history }) => {
             { isShownPass ? <VisibilityIcon fontSize='small' /> : <VisibilityOffIcon fontSize='small' /> }
           </Clickable>
           <Input
-            elementType='input'
             label='Password'
             name='password'
             className={ styles.registerInput }
@@ -141,7 +145,6 @@ const Register = ({ history }) => {
         </div>
         <span className={ styles.errorMsg }>{ errorMsg }</span>
         <Clickable
-          tag='button'
           className={ styles.createAccountButton }
           disabled={ (!getValues('firstName') || !getValues('lastName') || !getValues('email') || !getValues('password')) || !dirty || (errors['firstName'] || errors['lastName'] || errors['email'] || errors['password']) }
         >

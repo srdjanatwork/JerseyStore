@@ -23,7 +23,7 @@ const iconStyles = {
 const Navigation = () => {
   const [isOpenedShoppingModal, setIsOpenedShoppingModal] = useState(false);
   const [isOpenedProfileModal, setIsOpenedProfileModal] = useState(false);
-  const [imgSrc, setImgSrc] = useState(null);
+  const [imgSrc, setImgSrc] = useState();
 
   const openShoppingCartModal = () => {
     setIsOpenedShoppingModal(true);
@@ -50,11 +50,12 @@ const Navigation = () => {
       {({ currentUser }) => {
         let storageRef = app.storage().ref();
         /* eslint-disable no-unused-vars */
-        let spaceRef = currentUser && currentUser.photoURL && storageRef.child(`images/${ currentUser.photoURL }`);
-        /* eslint-disable no-unused-vars */
         if (currentUser && currentUser.photoURL) {
+          let spaceRef = currentUser && currentUser.photoURL && storageRef.child(`images/${ currentUser.photoURL }`);
           storageRef.child(`images/${ currentUser.photoURL }`).getDownloadURL().then(url => setUrl(url))
         }
+
+        console.log('currentUser', currentUser);
 
         return (
           <ShoppingCartConsumer>
@@ -76,7 +77,7 @@ const Navigation = () => {
                       <button onClick={ openProfileModal } className={ styles.profileButton }>
                         <ProfileAvatar
                           currentUser={ currentUser }
-                          imgSrc={ imgSrc }
+                          imgSrc={ imgSrc || currentUser.photoURL }
                           isSmall
                         />
                       </button>
@@ -99,11 +100,11 @@ const Navigation = () => {
                    <ShoppingCart closeModal={ closeModal } cartInfo={ cartInfo } />
                  </Modal>
                  }
-                 { isOpenedProfileModal &&
+                 { (isOpenedProfileModal && (imgSrc || currentUser)) &&
                  <Modal isOnRightSide closeModal={ closeModal }>
                    <Profile
                      currentUser={ currentUser }
-                     imgSrc={ imgSrc }
+                     imgSrc={ imgSrc || currentUser.photoURL }
                      closeModal={ closeModal }
                     />
                  </Modal>

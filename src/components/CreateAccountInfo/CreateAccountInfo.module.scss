@@ -1,0 +1,30 @@
+.registerTitle {
+  font-weight: bold;
+  font-size: 20px;
+  margin-bottom: 20px;
+}
+
+.registerText {
+  margin-bottom: 10px;
+}
+
+.registerList {
+  padding-left: 10px;
+  margin-bottom: 20px;
+
+  > li {
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px;
+  }
+
+  > li:before {
+    content: '';
+    display: block;
+    width: 5px;
+    height: 5px;
+    border-radius: 50%;
+    background-color: black;
+    margin-right: 10px;
+  }
+}

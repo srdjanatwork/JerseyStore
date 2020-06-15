@@ -4,7 +4,19 @@ import { REGEX } from 'lib/regex';
 import { INPUT_NAME } from 'lib/inputName';
 import styles from './Input.module.scss';
 
-const Input = ({ value, elementConfig, elementType, label, className, register, required, name, errors, onChangeHandler, isProfileError }) => {
+const Input = ({
+  value,
+  elementConfig,
+  elementType = 'input', 
+  label,
+  className,
+  register,
+  required,
+  name,
+  errors,
+  onChangeHandler,
+  isProfileError
+}) => {
   let inputEl = null;
 
   const inputClasses = classNames({
@@ -20,16 +32,12 @@ const Input = ({ value, elementConfig, elementType, label, className, register, 
     switch(name) {
       case(INPUT_NAME.email):
         return REGEX.email;
-      break;
       case(INPUT_NAME.firstName || INPUT_NAME.lastName):
         return REGEX.onlyLetter;
-      break;
       case(INPUT_NAME.fullName):
         return REGEX.fullName;
-      break;
       default:
        return null;
-      break;
     }
   }
 

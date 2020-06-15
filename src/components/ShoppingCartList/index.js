@@ -15,7 +15,6 @@ const ShoppingCartList = ({ cartInfo, closeModal }) => {
   return (
     <AuthContextConsumer>
       {({ currentUser }) => {
-        console.log('currentUser', currentUser);
         return (
           <div className={ styles.shoppingCartListWrapper }>
             <ShoppingCartControls cartInfo={ cartInfo } />

@@ -23,37 +23,6 @@
   background-color: var(--register-gray);
 }
 
-.registerTitle {
-  font-weight: bold;
-  font-size: 20px;
-  margin-bottom: 20px;
-}
-
-.registerText {
-  margin-bottom: 10px;
-}
-
-.registerList {
-  padding-left: 10px;
-  margin-bottom: 20px;
-
-  > li {
-    display: flex;
-    align-items: center;
-    margin-bottom: 10px;
-  }
-
-  > li:before {
-    content: '';
-    display: block;
-    width: 5px;
-    height: 5px;
-    border-radius: 50%;
-    background-color: black;
-    margin-right: 10px;
-  }
-}
-
 .createAccountLink {
   text-align: center;
   width: 160px;
@@ -63,8 +32,7 @@
   padding: 20px 30px;
 }
 
-.emailInput,
-.passwordInput {
+.input {
   display: flex;
   flex-direction: column;
   width: 100%;
@@ -73,14 +41,11 @@
   box-sizing: border-box;
 }
 
-.passwordInputWrapper {
-  margin-top: 20px;
-}
-
 .signInButton {
   text-align: center;
-  width: 120px;
   margin-right: 20px;
+  margin: 0 auto;
+  width: 200px;
 }
 
 .buttonWrapper {
@@ -92,7 +57,7 @@
 .errorMsg {
   color: var(--error-red);
   display: block;
-  margin-top: 10px;
+  margin-top: 5px;
 }
 
 .verificationMsg {
@@ -100,13 +65,51 @@
   font-size: 20px;
   margin-bottom: 20px;
   color: var(--error-red);
+  text-align: center;
+}
+
+.googleText {
+  margin-left: 30px;
 }
 
 .signInRegisterWrapper {
   display: flex;
 }
 
-.msgWrapper {
-  text-align: center;
-  margin-bottom: 30px;
+.forgetPasswordButton {
+  margin: 0 auto;
+  margin-top: 20px;
 }
+
+.signInWithGoogleButton {
+  background-color: var(--google-button-blue);
+  color: var(--color-white);
+  width: 200px;
+  text-align: center;
+  display: block;
+  position: relative;
+  border: 1px solid var(--google-button-blue);
+  padding: 9px 0;
+  margin: 0 auto;
+  margin-top: 10px;
+
+  &:hover {
+    background-color: var(--google-button-blue);
+  }
+}
+
+.googleIcon {
+  align-items: center;
+  background-color: var(--color-white);
+  display: flex;
+  height: 100%;
+  justify-content: center;
+  left: 0;
+  position: absolute;
+  top: 0;
+  width: 30px;
+}
+
+.input {
+   margin-bottom: 10px;
+ }

@@ -15,7 +15,7 @@ const ProfileAvatar = ({ currentUser, imgSrc, isSmall }) => {
 
   return (
     <>
-      { currentUser.photoURL ?
+      { (imgSrc) ?
         <img src={ imgSrc } style={ noImgStyle } alt='' /> :
         <Avatar alt='' style={ noImgStyle }>{ getInitialsHelper(currentUser.displayName) }</Avatar>
       }
