@@ -1,8 +1,12 @@
-import { ADD_JERSEY, REMOVE_JERSEY, UPDATE_JERSEY } from 'utils/actions/ShoppingCart';
+import {
+  ADD_JERSEY,
+  REMOVE_JERSEY,
+  UPDATE_JERSEY,
+} from 'utils/actions/ShoppingCart';
 
 export const initialState = {
   jerseys: [],
-  total: 0
+  total: 0,
 };
 
 export const shoppingCartReducer = (state, action) => {
@@ -40,7 +44,7 @@ export const shoppingCartReducer = (state, action) => {
       return {
         ...initialState,
         jerseys: updateArr,
-        total: countTotal(updateArr)
+        total: countTotal(updateArr),
       }
     case UPDATE_JERSEY:
       const arr = [...state.jerseys];
@@ -49,10 +53,10 @@ export const shoppingCartReducer = (state, action) => {
       return {
         ...initialState,
         jerseys: arr,
-        total: countTotal(arr)
+        total: countTotal(arr),
       }
     default:
-      return state;
+      return initialState;
   }
 }
 

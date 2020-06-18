@@ -55,8 +55,6 @@ const Navigation = () => {
           storageRef.child(`images/${ currentUser.photoURL }`).getDownloadURL().then(url => setUrl(url))
         }
 
-        console.log('currentUser', currentUser);
-
         return (
           <ShoppingCartConsumer>
             {({ cartInfo }) => {

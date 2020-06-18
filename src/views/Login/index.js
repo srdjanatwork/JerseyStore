@@ -1,9 +1,8 @@
-import React, { useCallback, useContext, useState, useEffect } from 'react';
+import React, { useCallback, useState, useEffect } from 'react';
 import { useForm } from "react-hook-form";
 import { withRouter } from "react-router";
 import { Link } from 'react-router-dom';
 import googleIcon from 'assets/images/test.png'
-import { AuthContext } from 'utils/context/AuthContextProvider';
 import { RouteList } from 'lib/routes';
 import Clickable from 'components/shared/Clickable';
 import CreateAccountInfo from 'components/CreateAccountInfo';
@@ -15,7 +14,6 @@ import styles from './Login.module.scss';
 const Login = ({ history }) => {
   const { register, handleSubmit, errors, formState, getValues } = useForm({ mode: 'onChange' });
   const [isVerified, setIsVerified] = useState(true);
-  const { actions: { addToUser } } = useContext(AuthContext);
   const [noVerifiedMsg, setNoVerifiedMsg] = useState('');
   const [errorMsg, setErrorMsg] = useState(null);
   const { dirty } = formState;
@@ -40,7 +38,6 @@ const Login = ({ history }) => {
           const user = app.auth().currentUser;
           if (user.emailVerified) {
             setIsVerified(true);
-            addToUser(user);
             history.push(RouteList.home);
           } else {
             setNoVerifiedMsg('You must verify your email');
@@ -51,7 +48,7 @@ const Login = ({ history }) => {
       } catch (error) {
         console.log('error', error.message);
       }
-  }, [history, getValues, addToUser]);
+  }, [history, getValues]);
 
   const forgetPassword = () => {
     let auth = app.auth();

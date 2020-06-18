@@ -1,0 +1,38 @@
+.title {
+  font-weight: bold;
+  margin-bottom: 20px;
+  display: block;
+}
+
+.orderWrapper {
+  padding: 0 20px;
+
+  img {
+    width: 70px;
+  }
+}
+
+.orderItem {
+  margin-bottom: 20px;
+  display: flex;
+}
+
+.orderInfo {
+  display: flex;
+  flex-direction: column;
+}
+
+.total {
+  font-weight: bold;
+  padding-left: 70px;
+}
+
+.teamName {
+  font-weight: bold;
+  margin-bottom: 10px;
+}
+
+.price {
+  margin-top: 10px;
+  display: block;
+}

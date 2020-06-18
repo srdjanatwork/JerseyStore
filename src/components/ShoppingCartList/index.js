@@ -15,6 +15,7 @@ const ShoppingCartList = ({ cartInfo, closeModal }) => {
   return (
     <AuthContextConsumer>
       {({ currentUser }) => {
+        console.log('currentUser from shopping cart', currentUser);
         return (
           <div className={ styles.shoppingCartListWrapper }>
             <ShoppingCartControls cartInfo={ cartInfo } />
@@ -29,7 +30,10 @@ const ShoppingCartList = ({ cartInfo, closeModal }) => {
               to={ RouteList.cart }
               transparent
             >
-              VIEW FULL SHOPPING BAG
+              { currentUser.coupon.applied ?
+                'VIEW FULL SHOPPING BAG' :
+                'VIEW FULL SHOPPING BAG IF YOU HAVE UNUSED PROMO CODE'
+              }
             </Clickable>
             { !currentUser && <CartAccountInfo closeModal={ closeModalHandler } /> }
             { (currentUser && !currentUser.emailVerified) && <span className={ styles.verifyMsg }>Please verify your email</span> }

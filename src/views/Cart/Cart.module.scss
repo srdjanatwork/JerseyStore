@@ -1,5 +1,3 @@
-@import 'utils/styles/mixins.scss';
-
 .shoppingCartControls {
   width: 500px;
   padding-right: 30px;
@@ -60,31 +58,6 @@
 
 .userLoginInfo {
   margin-top: 20px;
-}
-
-.couponButton,
-.shipping {
-  @include reset-button;
-  text-decoration: underline;
-  cursor: pointer;
-}
-
-.couponForm {
-  margin: 10px;
-}
-
-.couponInput {
-  width: 100%;
-  margin: 10px 0;
-  padding: 5px;
-}
-
-.applyButton {
-  background-color: var(--disabled-button-gray);
-  cursor: default;
-  pointer-events: none;
-  padding: 5px 0;
-  width: 70px;
 }
 
 .verifyMsg {

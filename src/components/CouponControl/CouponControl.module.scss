@@ -1,0 +1,29 @@
+@import 'utils/styles/mixins.scss';
+
+.item {
+  margin: 10px;
+  display: flex;
+  justify-content: space-between;
+}
+
+.infoButton {
+  @include reset-button;
+  text-decoration: underline;
+  cursor: pointer;
+}
+
+.couponForm {
+  margin: 10px;
+}
+
+.couponInput {
+  width: 100%;
+  margin: 10px 0;
+  padding: 5px;
+}
+
+.applyButton {
+  padding: 5px 0;
+  width: 70px;
+  text-align: center;
+}

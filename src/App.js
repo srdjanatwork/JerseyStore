@@ -4,7 +4,7 @@ import { RouteList } from './lib/routes';
 import CountriesContextProvider from 'utils/context/CountriesContextProvider';
 import TeamsContextProvider from 'utils/context/TeamsContextProvider';
 import { ShoppingCartProvider } from 'utils/context/ShoppingCartProvider';
-import { AuthContextProvider } from 'utils/context/AuthContextProvider';
+import { AuthContextProvider, AuthContextConsumer } from 'utils/context/AuthContextProvider';
 import Navigation from 'components/Navigation';
 import Home from 'views/Home';
 import Cart from 'views/Cart';
@@ -28,7 +28,9 @@ const App = () => {
                   <Home />
                 </Route>
                 <Route path={ RouteList.cart }>
-                  <Cart />
+                  <AuthContextConsumer>
+                  {({ currentUser }) => <Cart currentUser={ currentUser } /> }
+                  </AuthContextConsumer>
                 </Route>
                 <Route path={ RouteList.login }>
                   <Login />

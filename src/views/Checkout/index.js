@@ -1,20 +1,20 @@
 import React from 'react';
-import { ShoppingCartConsumer } from 'utils/context/ShoppingCartProvider';
 import { AuthContextConsumer } from 'utils/context/AuthContextProvider';
-// import styles from './Checkout.module.scss';
+import CheckoutProgress from 'components/CheckoutProgress';
+import Orders from 'components/Orders';
+import styles from './Checkout.module.scss';
 
 const Checkout = () => {
   return (
     <AuthContextConsumer>
       {({ currentUser }) => {
         return (
-          <ShoppingCartConsumer>
-            {({ cartInfo }) => {
-              return (
-                <h1>Checkout page in progress</h1>
-              );
-            }}
-           </ShoppingCartConsumer>
+          <div className={ styles.checkoutContainer }>
+            <CheckoutProgress />
+            <div className={ styles.sectionWrapper }>
+              <Orders currentUser={ currentUser } />
+            </div>
+          </div>
         );
       }}
     </AuthContextConsumer>

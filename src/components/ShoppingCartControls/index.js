@@ -19,7 +19,7 @@ const ShoppingCartControls = ({ cartInfo }) => {
   }
 
   return (
-    <>
+    <div className={ styles.shoppingCartControls }>
       { cartInfo.jerseys.map((jersey, index) => (
         <div key={ jersey.id + index + jersey.name } className={ styles.shoppingCartListInner }>
           <img className={ styles.image } src={ jersey.homeKit } alt='' />
@@ -32,7 +32,7 @@ const ShoppingCartControls = ({ cartInfo }) => {
           </div>
         </div>
       ))}
-    </>
+    </div>
   );
 }
 

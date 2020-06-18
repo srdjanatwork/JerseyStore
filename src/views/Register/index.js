@@ -8,6 +8,7 @@ import Input from 'components/shared/Input';
 import Clickable from 'components/shared/Clickable';
 import app from '../../base';
 import styles from './Register.module.scss';
+import voucher_codes from 'voucher-code-generator';
 
 const Register = ({ history }) => {
   const [isShownPass, setIsShown] = useState(false);
@@ -47,15 +48,21 @@ const Register = ({ history }) => {
             }
           });
 
-          // const db = app.firestore();
-          // const userUid = app.auth().currentUser.uid;
-          // const userRef = db.collection("users").doc(userUid).set({
-          //   info: {
-          //     firstName: getValues('firstName'),
-          //     lastName: getValues('lastName'),
-          //     email: getValues('email')
-          //   }
-          // });
+          const db = app.firestore();
+          const userUid = user.uid;
+          const userRef = db.collection('users').doc(userUid).set({
+            firstName: getValues('firstName'),
+            lastName: getValues('lastName'),
+            email: getValues('email'),
+            coupon: {
+              hash: voucher_codes.generate({
+                length: 6,
+                count: 1,
+                charset: voucher_codes.charset('alphanumeric')
+              }),
+              applied: false
+            }
+          });
         }).catch(error => {
           setErrorMsg(error.message);
         })

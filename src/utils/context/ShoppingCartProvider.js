@@ -21,7 +21,7 @@ export const ShoppingCartProvider = ({ children }) => {
 
   return (
     <ShoppingCartContext.Provider value={{ cartInfo, actions }}>
-      {children}
+      { children }
     </ShoppingCartContext.Provider>
   );
 }
