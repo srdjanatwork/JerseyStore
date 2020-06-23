@@ -4,17 +4,21 @@ import { withRouter } from "react-router";
 import VisibilityIcon from '@material-ui/icons/Visibility';
 import VisibilityOffIcon from '@material-ui/icons/VisibilityOff'
 import { RouteList } from 'lib/routes';
+import { Collection } from 'lib/collection';
+import { uploadImage } from 'utils/helpers/image';
+import { setDbCollection } from 'utils/helpers/database';
+import { getVaucher } from 'utils/helpers/vaucherGenerator';
 import Input from 'components/shared/Input';
 import Clickable from 'components/shared/Clickable';
 import app from '../../base';
 import styles from './Register.module.scss';
-import voucher_codes from 'voucher-code-generator';
 
 const Register = ({ history }) => {
   const [isShownPass, setIsShown] = useState(false);
   const [errorMsg, setErrorMsg] = useState(null);
   const { register, handleSubmit, errors, formState, getValues } = useForm({ mode: 'onChange' });
   const { dirty } = formState;
+  const db = app.firestore();
 
   const onSubmit = useCallback(async event => {
     try {
@@ -23,20 +27,18 @@ const Register = ({ history }) => {
         app.auth().createUserWithEmailAndPassword(getValues('email'), getValues('password'))
         .then(() => {
           const user = app.auth().currentUser;
+          const userUid = user.uid;
           user.sendEmailVerification();
 
-          let rootName = 'images';
-          let file = getValues('avatar');
-          let avatar = file && file[0];
-          let storageRef = avatar && app.storage().ref(`${rootName}/${getValues('firstName')}-${avatar.name}`);
-          /* eslint-disable no-unused-vars */
-          let uploadTask = storageRef && storageRef.put(avatar);
-          /* eslint-disable no-unused-vars */
+          // upload image helper
+          if (getValues('avatar').length > 0) {
+            uploadImage(app, 'images', getValues('avatar'), userUid)
+          }
 
           if (user) {
             user.updateProfile({
                displayName: `${getValues('firstName')} ${getValues('lastName')}`,
-               photoURL: avatar ? `${getValues('firstName')} ${getValues('lastName')}-${avatar.name}` : null,
+               photoURL: getValues('avatar').length > 0 ? `${ userUid }` : null,
             })
           }
 
@@ -48,28 +50,20 @@ const Register = ({ history }) => {
             }
           });
 
-          const db = app.firestore();
-          const userUid = user.uid;
-          const userRef = db.collection('users').doc(userUid).set({
-            firstName: getValues('firstName'),
-            lastName: getValues('lastName'),
-            email: getValues('email'),
-            coupon: {
-              hash: voucher_codes.generate({
-                length: 6,
-                count: 1,
-                charset: voucher_codes.charset('alphanumeric')
-              }),
-              applied: false
-            }
-          });
+          const promoCode = getVaucher();
+
+          // set database collection helper
+          setDbCollection(
+            db, Collection.users, userUid, getValues('firstName'), getValues('lastName'), getValues('email'), promoCode
+          );
+
         }).catch(error => {
           setErrorMsg(error.message);
         })
       } catch (error) {
         console.log('error', error);
       }
-  }, [history, getValues]);
+  }, [history, getValues, db]);
 
   const handlePassVisibility = (event) => {
     event.preventDefault();

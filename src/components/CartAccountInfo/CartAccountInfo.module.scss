@@ -15,3 +15,11 @@
   font-weight: bold;
   display: inline;
 }
+
+.info {
+  margin-left: 5px;
+
+  p:first-of-type {
+    margin-bottom: 5px;
+  }
+}

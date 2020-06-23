@@ -4,6 +4,9 @@ import { withRouter } from "react-router";
 import CameraAltIcon from '@material-ui/icons/CameraAlt';
 import { RouteList } from 'lib/routes';
 import { INPUT_NAME } from 'lib/inputName';
+import { Collection } from 'lib/collection';
+import { getImage, uploadImage } from 'utils/helpers/image';
+import { updateDbUserCollection } from 'utils/helpers/database';
 import Clickable from 'components/shared/Clickable';
 import ProfileInfoControl from 'components/ProfileInfoControl';
 import ProfileAvatar from 'components/ProfileAvatar';
@@ -17,8 +20,10 @@ const Profile = ({ currentUser, imgSrc, history, closeModal }) => {
   const [values, setValues] = useState({});
   const [verificationMsg, setMsg] = useState();
   const [errorMsg, setError] = useState();
-  const [url, setUrl] = useState();
-
+  const [url, setUrl] = useState(imgSrc);
+  const db = app.firestore();
+  const userUid = currentUser && currentUser.uid;
+  const user = app.auth().currentUser;
 
   const logOut = () => {
     app.auth().signOut();
@@ -38,42 +43,44 @@ const Profile = ({ currentUser, imgSrc, history, closeModal }) => {
   }
 
   const saveDataHandler = () => {
-    currentUser.updateProfile({
-     displayName: values.fullName ? values.fullName : currentUser.displayName,
-    })
+    if (user && values.fullName) {
+      user.updateProfile({
+       displayName: values.fullName ? values.fullName : user.displayName,
+      })
+      updateDbUserCollection(
+        db, Collection.users, userUid, 'displayName', values.fullName, currentUser
+      );
+    }
 
-    if (values.email) {
-      currentUser.updateEmail(values.email).then(() => {
+    if (user && values.email) {
+      user.updateEmail(values.email).then(() => {
         setMsg(`Verification link sent to ${values.email}`);
-        currentUser.sendEmailVerification();
+        user.sendEmailVerification();
+        updateDbUserCollection(
+          db, Collection.users, userUid, 'email', values.email, currentUser
+        );
       }).catch(error => setError(error.message));
     }
   }
 
   const setIsShownHandler = (isShown) => {
+    console.log('isShown', isShown);
     if (isShown) {
       setButtonState(false);
     }
   }
 
   const onChangeHandler = () => {
-    const user = app.auth().currentUser;
-    let rootName = 'images';
-    let file = getValues('avatar');
-    let avatar = file && file[0];
-    let storageRef = avatar && app.storage().ref(`${rootName}/${currentUser.displayName}-${avatar.name}`);
-    /* eslint-disable no-unused-vars */
-    let uploadTask = storageRef && storageRef.put(avatar);
+    // upload image helper
+    uploadImage(app, 'images', getValues('avatar'), userUid)
 
     user.updateProfile({
-      photoURL: `${currentUser.displayName}-${avatar.name}`
+      photoURL: getValues('avatar').length > 0 ? `${userUid}` : null
     }).then(() => {
-      const updateUser = app.auth().currentUser;
-      let storageRef = app.storage().ref();
-      let spaceRef = updateUser.photoURL && storageRef.child(`images/${ updateUser.photoURL }`);
-      storageRef.child(`images/${ updateUser.photoURL }`).getDownloadURL().then(url => setUrl(url))
+      // get image helper return Promise
+      const imagePromise = getImage(app, 'images', userUid);
+      imagePromise.getDownloadURL().then(url => setUrl(url));
     });
-
     setButtonState(true);
   }
 
@@ -83,7 +90,7 @@ const Profile = ({ currentUser, imgSrc, history, closeModal }) => {
         { currentUser &&
           <div className={ styles.avatarWrapper }>
             <CameraAltIcon className={ styles.camera } fontSize='large' />
-            <ProfileAvatar currentUser={ currentUser } imgSrc={ url ? url : imgSrc } />
+            <ProfileAvatar user={ user } name={ values.fullName } imgSrc={ url } />
             <Input
               register={ register }
               name='avatar'
@@ -100,13 +107,13 @@ const Profile = ({ currentUser, imgSrc, history, closeModal }) => {
         }
         <div className={ styles.profileInfoWrapper }>
           <ProfileInfoControl
-            info={ currentUser.displayName }
+            info={ user.displayName }
             infoLabel={ INPUT_NAME.fullName }
             sendUpdatedInfo={ updatedInfoHandler }
             setIsShownHandler={ setIsShownHandler }
           />
           <ProfileInfoControl
-            info={ currentUser.email }
+            info={ user.email }
             infoLabel={ INPUT_NAME.email }
             sendUpdatedInfo={ updatedInfoHandler }
             setIsShownHandler={ setIsShownHandler }

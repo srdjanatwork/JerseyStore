@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { Link } from 'react-router-dom';
 import { ShoppingCartConsumer } from 'utils/context/ShoppingCartProvider';
 import { RouteList } from 'lib/routes';
@@ -10,16 +10,14 @@ import CouponControl from 'components/CouponControl';
 import styles from './Cart.module.scss';
 
 const Cart = ({ currentUser }) => {
-  const [applied, setApplied] = useState(false);
-  const setIsApplied = (isApplied) => {
-    if (isApplied) {
-      setApplied(true)
-    }
-  }
+  let user = localStorage.getItem('user');
+  let userParsed = JSON.parse(user);
+  let applied = userParsed.coupon.applied;
+
   return (
     <ShoppingCartConsumer>
       {({ cartInfo }) => {
-        return cartInfo.total > 0 ? (
+        return (cartInfo.total > 0) ? (
           <div className={ styles.shoppingCartContainer }>
             <h1 className={ styles.shoppingCartTitle }>Shopping cart</h1>
             <div className={ styles.shoppingCartWrapper }>
@@ -34,12 +32,13 @@ const Cart = ({ currentUser }) => {
                     <CouponControl
                       currentUser={ currentUser }
                       cartInfo={ cartInfo }
-                      sendIsApplied={ setIsApplied }
                     />
                   </div>
                   <CartTotal
+                    cartInfo={ cartInfo }
                     applied={ applied }
-                    cartInfo={ cartInfo } />
+                    label='Grand total:'
+                  />
                 </div>
                 <div className={ styles.userLoginInfo }>
                   { !currentUser && <CartAccountInfo /> }

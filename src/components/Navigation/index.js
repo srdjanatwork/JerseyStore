@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import AccountBoxIcon from '@material-ui/icons/AccountBox';
 import SearchIcon from '@material-ui/icons/Search';
 import ShoppingCartIcon from '@material-ui/icons/ShoppingCart';
+import { getImage } from 'utils/helpers/image';
 import { ShoppingCartConsumer } from 'utils/context/ShoppingCartProvider';
 import { AuthContextConsumer } from 'utils/context/AuthContextProvider';
 import { RouteList } from 'lib/routes';
@@ -24,6 +25,7 @@ const Navigation = () => {
   const [isOpenedShoppingModal, setIsOpenedShoppingModal] = useState(false);
   const [isOpenedProfileModal, setIsOpenedProfileModal] = useState(false);
   const [imgSrc, setImgSrc] = useState();
+  const user = app.auth().currentUser;
 
   const openShoppingCartModal = () => {
     setIsOpenedShoppingModal(true);
@@ -48,11 +50,14 @@ const Navigation = () => {
   return (
     <AuthContextConsumer>
       {({ currentUser }) => {
-        let storageRef = app.storage().ref();
-        /* eslint-disable no-unused-vars */
         if (currentUser && currentUser.photoURL) {
-          let spaceRef = currentUser && currentUser.photoURL && storageRef.child(`images/${ currentUser.photoURL }`);
-          storageRef.child(`images/${ currentUser.photoURL }`).getDownloadURL().then(url => setUrl(url))
+          const imagePromise = getImage(app, 'images', currentUser.photoURL);
+          imagePromise.getDownloadURL().then(url => setUrl(url));
+        }
+
+        if (user && user.photoURL) {
+          const imagePromise = getImage(app, 'images', user.photoURL);
+          imagePromise.getDownloadURL().then(url => setUrl(url));
         }
 
         return (
@@ -66,16 +71,16 @@ const Navigation = () => {
                     className={ styles.logo }
                     to={ RouteList.home }
                     transparent
-                  >
-                    Logo
+                  >Logo
                   </Clickable>
                   <div className={ styles.iconsWrapper }>
                     <SearchIcon fontSize="large" />
                     { (currentUser && currentUser.emailVerified) ?
                       <button onClick={ openProfileModal } className={ styles.profileButton }>
                         <ProfileAvatar
-                          currentUser={ currentUser }
-                          imgSrc={ imgSrc || currentUser.photoURL }
+                          user={ currentUser }
+                          imgSrc={ imgSrc }
+                          name={ (user && user.displayName) ? user.displayName : currentUser.displayName }
                           isSmall
                         />
                       </button>
@@ -104,7 +109,7 @@ const Navigation = () => {
                      currentUser={ currentUser }
                      imgSrc={ imgSrc || currentUser.photoURL }
                      closeModal={ closeModal }
-                    />
+                   />
                  </Modal>
                  }
                </div>

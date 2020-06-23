@@ -5,8 +5,8 @@ import {
 } from 'utils/actions/ShoppingCart';
 
 export const initialState = {
-  jerseys: [],
-  total: 0,
+  jerseys: localStorage.getItem('teams') ? JSON.parse(localStorage.getItem('teams')) : [],
+  total: localStorage.getItem('total') ? JSON.parse(localStorage.getItem('total')) : 0,
 };
 
 export const shoppingCartReducer = (state, action) => {
@@ -17,9 +17,9 @@ export const shoppingCartReducer = (state, action) => {
         jerseyCount: action.payload.jerseyCount
       }
 
-      let allJerseyArr = [...state.jerseys, formattedJerseyObj];
+     let allJerseyArr = [...state.jerseys, formattedJerseyObj];
 
-      const filteredArr = allJerseyArr.reduce((acc, current) => {
+     const filteredArr = allJerseyArr.reduce((acc, current) => {
         const x = acc.find(item => {
           if(item.id === current.id) {
             item.jerseyCount = item.jerseyCount + current.jerseyCount
@@ -33,6 +33,9 @@ export const shoppingCartReducer = (state, action) => {
         }
       }, []);
 
+      localStorage.setItem('teams', JSON.stringify(filteredArr));
+      localStorage.setItem('total', JSON.stringify(countTotal(filteredArr)));
+
       return {
         ...initialState,
         jerseys: filteredArr,
@@ -40,6 +43,8 @@ export const shoppingCartReducer = (state, action) => {
       };
     case REMOVE_JERSEY:
       const updateArr = state.jerseys.filter((_jerey, i) => action.payload.jerseyId !== i);
+      localStorage.setItem('teams', JSON.stringify(updateArr));
+      localStorage.setItem('total', JSON.stringify(countTotal(updateArr)));
 
       return {
         ...initialState,
@@ -49,6 +54,8 @@ export const shoppingCartReducer = (state, action) => {
     case UPDATE_JERSEY:
       const arr = [...state.jerseys];
       arr[action.payload.itemIndex].jerseyCount = action.payload.updateCount;
+      localStorage.setItem('teams', JSON.stringify(arr));
+      localStorage.setItem('total', JSON.stringify(countTotal(arr)));
 
       return {
         ...initialState,

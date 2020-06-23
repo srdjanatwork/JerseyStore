@@ -14,23 +14,34 @@ export const AuthContextProvider = ({ children }) => {
       if (user) {
         let docRef = db.collection('users').doc(user.uid);
         docRef.get().then(doc => {
-          if (doc.exists) {
-            const data = doc.data();
-            setCoupon({
-              hash: data.coupon.hash,
-              applied: data.coupon.applied
-            });
-          }
-        }).catch(error => {
+            if (doc.exists) {
+              const data = doc.data();
+              setCoupon({
+                hash: data.coupon.hash,
+                applied: data.coupon.applied
+              });
+              localStorage.setItem('user', JSON.stringify({
+                user: user,
+                coupon: {
+                  hash: data.coupon.hash,
+                  applied: data.coupon.applied
+               }}))
+            }
+
+          }).catch(error => {
           console.log("Error getting document:", error);
         });
+      } else {
+        setCoupon(undefined);
       }
     });
   }, [setUserData, db]);
 
-  const currentUser = {
+  const currentUser = coupon ? {
     ...userDataFromFirebase,
     coupon: coupon
+  } : {
+    ...userDataFromFirebase
   }
 
   return (

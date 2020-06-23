@@ -15,7 +15,7 @@ const Orders = ({ currentUser }) => {
             <span className={ styles.title }>YOUR ORDER ({ itemCount } { itemCount > 1 ? 'ITEMS' : 'ITEM' })</span>
             { jerseys.map(jersey => (
               <div className={ styles.orderItem } key={ jersey.id }>
-                <img src={ jersey.homeKit } />
+                <img src={ jersey.homeKit } alt='' />
                 <div className={ styles.orderInfo }>
                   <span className={ styles.teamName }>{ jersey.name }</span>
                   <span>Qty: { jersey.jerseyCount }</span>

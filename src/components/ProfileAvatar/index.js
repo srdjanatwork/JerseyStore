@@ -2,7 +2,7 @@ import React from 'react';
 import Avatar from '@material-ui/core/Avatar';
 import { getInitialsHelper } from 'utils/helpers/getInitials';
 
-const ProfileAvatar = ({ currentUser, imgSrc, isSmall }) => {
+const ProfileAvatar = ({ user, name, imgSrc, isSmall }) => {
   const noImgStyle = {
     width: isSmall ? '40px' : '200px',
     height: isSmall ? '40px' : '200px',
@@ -15,9 +15,9 @@ const ProfileAvatar = ({ currentUser, imgSrc, isSmall }) => {
 
   return (
     <>
-      { (imgSrc) ?
-        <img src={ imgSrc } style={ noImgStyle } alt='' /> :
-        <Avatar alt='' style={ noImgStyle }>{ getInitialsHelper(currentUser.displayName) }</Avatar>
+      { imgSrc && <img src={ imgSrc } style={ noImgStyle } alt='' /> }
+      { (!imgSrc && (name || user)) &&
+        <Avatar alt='' style={ noImgStyle }>{ name ? getInitialsHelper(name) : getInitialsHelper(user.displayName) }</Avatar>
       }
     </>
   );

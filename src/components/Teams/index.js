@@ -6,13 +6,14 @@ import styles from './Teams.module.scss';
 const Teams = ({ results, allTeamsNumber, loadMore }) => {
   return (
     <div className={ styles.teams }>
-      <div className={ styles.teamWrapper }>{ results.map(team => <Team key={ team.name } team={ team } />) }</div>
+      <div className={ styles.teamWrapper }>
+        { results.map(
+           team => <Team key={ team.name } team={ team } />
+          )
+        }
+      </div>
       { (allTeamsNumber && (allTeamsNumber !== results.length)) &&
-        <Clickable
-          tag='button'
-          className={ styles.button }
-          onClick={ loadMore }
-        >
+        <Clickable className={ styles.button } onClick={ loadMore }>
           Load more...
         </Clickable>
       }

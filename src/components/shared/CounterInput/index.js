@@ -1,4 +1,6 @@
 import React, { useState, useEffect } from 'react';
+import { usePrevious } from 'utils/useRef';
+import { buttonType } from 'lib/buttonType';
 import Input from 'components/shared/Input';
 import styles from './CounterInput.module.scss';
 
@@ -7,9 +9,10 @@ const MAX_VALUE = 10;
 
 const CounterInput = ({ setCounter, jerseyCount }) => {
   const [count, setCountState] = useState(jerseyCount ? jerseyCount : 1);
+  const prevCount = usePrevious(count);
 
   const changeCount = (type) => {
-    if (type === 'decrease') {
+    if (type === buttonType.decrease) {
       setCountState(count => count - 1);
 
       if (count < (MIN_VALUE + 1)) {
@@ -18,23 +21,25 @@ const CounterInput = ({ setCounter, jerseyCount }) => {
       }
     }
 
-    if (type === 'increase') {
+    if (type === buttonType.increase) {
       setCountState(count => count + 1);
 
       if (count > (MAX_VALUE - 1)) {
         setCountState(MAX_VALUE);
         setCounter(MAX_VALUE);
       }
-   }
+    }
   }
 
   useEffect(() => {
-    setCounter(count);
-  }, [count])
+    if (prevCount !== count) {
+      setCounter(count);
+    }
+  }, [count, prevCount, setCounter])
 
   return (
      <div className={ styles.quantityWrapper }>
-      <button className={ styles.quantityButton } onClick={ () => changeCount('decrease') }>-</button>
+      <button className={ styles.quantityButton } onClick={ () => changeCount(buttonType.decrease) }>-</button>
       <Input
         elementType='input'
         elementConfig={{
@@ -42,11 +47,11 @@ const CounterInput = ({ setCounter, jerseyCount }) => {
           'min': '1',
           'max': '10'
         }}
-        value={ count }
+        value={ jerseyCount ? jerseyCount : count }
         className={ styles.counterInput }
         onChangeHandler={ () => {} }
       />
-      <button className={ styles.quantityButton } onClick={ () => changeCount('increase') }>+</button>
+      <button className={ styles.quantityButton } onClick={ () => changeCount(buttonType.increase) }>+</button>
     </div>
   );
 }

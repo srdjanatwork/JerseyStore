@@ -8,7 +8,10 @@ const CountriesContextProvider = ({ children }) => {
   useEffect(() => {
     fetch('/countries')
       .then(response => response.json())
-      .then(data => setCountriesData(data));
+      .then(data => {
+        setCountriesData(data)
+        localStorage.setItem('countries', JSON.stringify(data));
+      });
   }, []);
 
   return (

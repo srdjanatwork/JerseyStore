@@ -4,7 +4,7 @@ import ShoppingCartControl from 'components/ShoppingCartControl';
 import styles from './ShoppingCartControls.module.scss';
 
 const ShoppingCartControls = ({ cartInfo }) => {
-  const countries = useContext(CountriesContext);
+  const countries = useContext(CountriesContext) || JSON.parse(localStorage.getItem('countries'));
 
   const getCountryInfo = (jersey) => {
     let country = countries.find(country => country.id === jersey.countryId);

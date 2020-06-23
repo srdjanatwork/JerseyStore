@@ -48,7 +48,6 @@ const ProfileInfoControl = ({ info, infoLabel, sendUpdatedInfo, setIsShownHandle
         <div className={ styles.buttonWrapper }>
           { !isShownInput &&
           <Clickable
-            tag='button'
             onClick={ editHandler }
             className={ styles.editButton }
             transparent
@@ -58,7 +57,6 @@ const ProfileInfoControl = ({ info, infoLabel, sendUpdatedInfo, setIsShownHandle
           { isShownInput &&
             <div className={ styles.editCancelWrapper }>
               <Clickable
-                tag='button'
                 onClick={ saveHandler }
                 className={ styles.editButton }
                 disabled={ disableSave }
@@ -67,7 +65,6 @@ const ProfileInfoControl = ({ info, infoLabel, sendUpdatedInfo, setIsShownHandle
                 Save
               </Clickable>
               <Clickable
-                tag='button'
                 onClick={ cancelHandler }
                 className={ styles.editButton }
                 transparent
@@ -80,7 +77,6 @@ const ProfileInfoControl = ({ info, infoLabel, sendUpdatedInfo, setIsShownHandle
       </div>
       { isShownInput &&
         <Input
-          elementType='input'
           name={ infoLabel }
           className={ styles.editInput }
           register={ register }

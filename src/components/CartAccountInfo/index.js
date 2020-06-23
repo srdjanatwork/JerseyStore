@@ -32,7 +32,7 @@ const CartAccountInfo = ({ closeModal }) => {
     <div className={ styles.userInfo }>
       <div className={ styles.userInfoLogIn }>
         <InfoIcon fontSize='large'/>
-        <div>
+        <div className={ styles.info }>
           <p>Please { logInText }.</p>
           <p>Don't have account? Please { signUpText }</p>
         </div>

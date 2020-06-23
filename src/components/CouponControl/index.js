@@ -1,14 +1,18 @@
 import React, { useState, useEffect } from 'react';
 import Clickable from 'components/shared/Clickable';
 import Input from 'components/shared/Input';
+import { Collection } from 'lib/collection';
+import { updateDbUserCollection } from 'utils/helpers/database';
 import app from '../../base';
 import styles from './CouponControl.module.scss';
 
-const CouponControl = ({ currentUser, cartInfo, sendIsApplied }) => {
+const CouponControl = ({ currentUser, cartInfo }) => {
   const [isOpenedCouponForm, setCouponForm] = useState(false);
   const [isApplied, setIsApplied] = useState(false);
   const db = app.firestore();
-  const userUid = currentUser && currentUser.uid;
+  const storageUser = localStorage.getItem('user');
+  const storageUserParsed = JSON.parse(storageUser)
+  const userUid = (currentUser && currentUser.uid) || storageUserParsed.user.uid;
 
   const openCouponForm = () => {
     setCouponForm(!isOpenedCouponForm);
@@ -16,12 +20,14 @@ const CouponControl = ({ currentUser, cartInfo, sendIsApplied }) => {
 
   const applyCoupon = () => {
     setCouponForm(false);
-    db.collection('users').doc(userUid).update({
-      coupon: {
-        hash: currentUser.coupon.hash[0],
-        applied: true
-      }
-    })
+    setIsApplied(true);
+    const coupon = {
+      hash: currentUser.coupon.hash[0],
+      applied: true
+    }
+    updateDbUserCollection(
+      db, Collection.users, userUid, 'coupon', coupon, currentUser
+    );
   };
 
   useEffect(() => {
@@ -31,11 +37,10 @@ const CouponControl = ({ currentUser, cartInfo, sendIsApplied }) => {
         const data = doc.data();
         if (data.coupon.applied) {
           setIsApplied(true);
-          sendIsApplied(true);
         }
       }
     })
-  },[applyCoupon, userUid, db, currentUser])
+  },[userUid, db, isApplied])
 
   return (
     <>
