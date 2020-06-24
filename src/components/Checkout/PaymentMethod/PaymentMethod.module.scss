@@ -1,0 +1,21 @@
+.payOptionButton {
+  color: var(--black);
+  border: 1px solid #000;
+  width: 100%;
+  padding-left: 10px;
+}
+
+.payOptionInner {
+  display: flex;
+  align-items: center;
+
+  span {
+    display: block;
+    margin-left: 10px;
+  }
+}
+
+.paypalIcon {
+  width: 24px;
+  height: 24px;
+}

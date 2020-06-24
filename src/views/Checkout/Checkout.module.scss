@@ -1,8 +1,13 @@
 .checkoutContainer {
-  padding: 50px 0;
+  padding: 30px;
   overflow: hidden;
 }
 
 .sectionWrapper {
   display: flex;
+  justify-content: space-between;
+}
+
+.sectionItem {
+  width: 300px;
 }

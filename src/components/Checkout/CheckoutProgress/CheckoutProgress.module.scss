@@ -1,4 +1,6 @@
-.item {
+.orderItem,
+.deliveryItem,
+.paymentItem {
   display: flex;
   flex-direction: column;
   text-align: center;
@@ -20,7 +22,6 @@
   width: 40px;
   height: 40px;
   border-radius: 50%;
-  background-color: var(--light-blue);
   display: flex;
   justify-content: center;
   align-items: center;
@@ -30,17 +31,19 @@
 
 .circle {
   &:after {
+    background-color: var(--light-blue);
     content: '';
     display: block;
     height: 2px;
-    width: 1000px;
-    position: absolute;
     left: 40px;
-    background-color: var(--light-blue);
+    position: absolute;
+    width: 1000px;
   }
 }
 
-.item {
+.orderItem,
+.deliveryItem,
+.paymentItem {
   span {
     font-weight: bold;
     color: var(--light-blue);
@@ -49,6 +52,7 @@
   .circle,
   .circleLast {
     color: black;
+    background-color: var(--light-blue);
   }
 }
 
@@ -62,4 +66,14 @@
       left: 40px;
       background-color: var(--color-white);
     }
+}
+
+.orderItem {
+  .circle {
+    background-color: var(--error-red);;
   }
+
+  span:last-of-type {
+    color: var(--error-red);
+  }
+}

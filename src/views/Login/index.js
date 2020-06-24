@@ -2,7 +2,7 @@ import React, { useCallback, useState, useEffect } from 'react';
 import { useForm } from "react-hook-form";
 import { withRouter } from "react-router";
 import { Link } from 'react-router-dom';
-import googleIcon from 'assets/images/test.png'
+import googleIcon from 'assets/images/google.png'
 import { RouteList } from 'lib/routes';
 import Clickable from 'components/shared/Clickable';
 import CreateAccountInfo from 'components/CreateAccountInfo';

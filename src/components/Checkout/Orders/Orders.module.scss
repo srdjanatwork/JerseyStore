@@ -1,0 +1,91 @@
+.title {
+  font-weight: bold;
+  margin-bottom: 20px;
+  display: block;
+  text-align: center;
+}
+
+.container {
+  img {
+    width: 70px;
+  }
+}
+
+.orderItem {
+  margin-bottom: 20px;
+  display: flex;
+}
+
+.orderInfo {
+  display: flex;
+  flex-direction: column;
+}
+
+.total {
+  background-color: var(--light-blue);
+  display: inline-block;
+  font-weight: bold;
+  margin-left: 70px;
+  padding: 10px;
+}
+
+.teamName {
+  font-weight: bold;
+  margin-bottom: 10px;
+}
+
+.price {
+  margin-top: 10px;
+  display: block;
+}
+
+.buttonWrapper {
+  margin-top: 20px;
+}
+
+.paypal {
+  width: 100%;
+  margin-top: 5px;
+  padding: 10px 0;
+  text-align: center;
+}
+
+.label {
+  font-size: 14px;
+  font-weight: bold;
+}
+
+.paypalInner {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.info {
+  display: block;
+  font-size: 14px;
+  margin: 10px 0;
+}
+
+.continueButton {
+  background-color: var(--disabled-button-gray);
+  margin-top: 5px;
+  padding: 11px 0;
+  text-align: center;
+  width: 100%;
+
+  &:hover {
+    background-color: var(--disabled-button-gray);
+  }
+}
+
+.shippingWrapper {
+  margin: 30px 0;
+}
+
+.input {
+  display: flex;
+  width: 100%;
+  margin-top: 5px;
+  padding: 10px 0;
+}

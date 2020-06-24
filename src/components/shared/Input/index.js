@@ -7,7 +7,7 @@ import styles from './Input.module.scss';
 const Input = ({
   value,
   elementConfig,
-  elementType = 'input', 
+  elementType = 'input',
   label,
   className,
   register,
@@ -91,10 +91,11 @@ const Input = ({
     case('select'):
       inputEl = (
         <select
-          className={ styles.selectElement }
+          className={ className }
           value={ value }
           ref={ register }
           name={ name }
+          onChange={ onChangeHandler }
         >
           { elementConfig.options.map(option => {
             return (

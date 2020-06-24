@@ -1,0 +1,28 @@
+.title {
+  font-weight: bold;
+  margin-bottom: 20px;
+  display: block;
+  text-align: center;
+}
+
+.cardWrapper,
+.paymentWrapper {
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.button {
+  text-align: center;
+  background-color: var(--disabled-button-gray);
+  width: 100%;
+  margin-top: 10px;
+
+  &:hover {
+    background-color: var(--disabled-button-gray);
+  }
+}
+
+.text {
+  margin-top: 10px;
+  display: block;
+}
