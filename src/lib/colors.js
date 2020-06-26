@@ -1,4 +1,5 @@
 export const Colors = {
-  defaultRating: '#e3f6fa',
+  notReviewedRating: '#e3f6fa',
+  defaultRating: '#ccc',
   reviewedRating: 'rgb(115, 210, 230)'
 };

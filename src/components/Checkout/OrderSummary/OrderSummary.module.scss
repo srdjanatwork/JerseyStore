@@ -1,0 +1,54 @@
+.container {
+  margin-top: 50px;
+}
+
+.title {
+  margin-bottom: 10px;
+  display: block;
+  font-weight: bold;
+  border-bottom: 1px solid rgba(0,0,0, .3);
+  padding-bottom: 5px;
+}
+
+.item {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 5px;
+}
+
+.price {
+  font-weight: bold;
+}
+
+.subtotal {
+  margin-top: 10px;
+  justify-content: space-between;
+  width: 100%;
+  display: flex;
+  border-top: 1px solid rgba(0,0,0, .3);
+  padding-top: 5px;
+
+  span {
+    font-weight: bold;
+  }
+}
+
+.shipping {
+  margin-top: 30px;
+}
+
+.shippingUpper {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 5px;
+}
+
+.totalOrder {
+  background-color: var(--light-blue);
+  display: flex;
+  justify-content: space-between;
+  margin-top: 30px;
+  padding: 10px;
+  text-align: center;
+  font-weight: bold;
+}

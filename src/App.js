@@ -12,6 +12,7 @@ import Login from 'views/Login';
 import Register from 'views/Register';
 import EmailVerified from 'views/EmailVerified';
 import Checkout from 'views/Checkout';
+import Team from 'views/Team';
 import NoMatch from 'views/NoMatch';
 import Test from 'views/Test';
 
@@ -43,6 +44,9 @@ const App = () => {
                 </Route>
                 <Route path={ RouteList.checkout }>
                   <Checkout />
+                </Route>
+                <Route path={ `${RouteList.team}/:id` }>
+                  <Team />
                 </Route>
                 <Route path={ RouteList.test }>
                   <Test />

@@ -81,9 +81,10 @@ const Input = ({
     case('textarea'):
       inputEl = (
         <textarea
-          className={ styles.InputElement }
+          className={ className }
           value={ value }
           name={ name }
+          onChange={ onChangeHandler }
           { ...elementConfig }
         />
       )

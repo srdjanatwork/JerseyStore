@@ -4,6 +4,8 @@ import ShoppingCartContext from 'utils/context/ShoppingCartProvider';
 import Rating from 'components/Rating';
 import CounterInput from 'components/shared/CounterInput';
 import Clickable from 'components/shared/Clickable';
+import Modal from 'components/shared/Modal';
+import Review from 'components/Review';
 import styles from './TeamView.module.scss';
 
 const TeamView = ({ team, closeModal }) => {
@@ -11,6 +13,7 @@ const TeamView = ({ team, closeModal }) => {
   const {
     actions: { addToCart }
   } = useContext(ShoppingCartContext);
+  const [isOpened, setIsOpened] = useState(false);
   const [isHomeJersey, setIsHomeJersey] = useState(true);
   const [counter, setCounterNum] = useState();
 
@@ -24,10 +27,20 @@ const TeamView = ({ team, closeModal }) => {
 
   const addToCartHandler = () => {
     addToCart(team, counter);
-    closeModal();
+    if (closeModal) {
+      closeModal();
+    }
   }
 
-  let country = countries.find(country => country.id === team.countryId);
+  const openReviewModal = () => {
+    setIsOpened(true)
+  }
+
+  const closeModalHandler = () => {
+    setIsOpened(false);
+  }
+
+  let country = countries && countries.find(country => country.id === team.countryId);
   let countryInfo = country && (
     <div className={ styles.countryFlagWrapper }>
       <span>{ country.name }</span>
@@ -42,7 +55,6 @@ const TeamView = ({ team, closeModal }) => {
       <div className={ styles.imageWrapper }>
         <img src={ isHomeJersey ? team.homeKit : team.awayKit } alt='' />
         <Clickable
-          tag='button'
           className={ styles.changeJerseyButton }
           onClick={ changeJersey }
           transparent
@@ -58,7 +70,23 @@ const TeamView = ({ team, closeModal }) => {
         </div>
         <div className={ styles.reviewInfo }>
           <Rating rating={ team.rating } />
-          <p className={ styles.reviewText }>Read 0 reviews or <span>write a Review</span></p>
+          <p className={ styles.reviewText }>
+            <Clickable
+              transparent
+              className={ styles.underlineButton }
+              onClick={ () => {} }
+            >
+              Read 0 reviews
+            </Clickable>
+            <span className={ styles.or }>or</span>
+            <Clickable
+              transparent
+              className={ styles.underlineButton }
+              onClick={ openReviewModal }
+            >
+              write a Review
+            </Clickable>
+          </p>
         </div>
         <div className={ styles.countryInfo }>
           <span className={ styles.countryLabel }>Country:</span>
@@ -87,13 +115,17 @@ const TeamView = ({ team, closeModal }) => {
         </div>
         <CounterInput setCounter={ setCounter } />
         <Clickable
-          tag='button'
           className={ styles.addCardButton }
           onClick={ addToCartHandler }
         >
           Add to card
         </Clickable>
       </div>
+      { isOpened &&
+       <Modal closeModal={ closeModalHandler }>
+         <Review jersey={ team.homeKit } />
+       </Modal>
+      }
     </div>
   );
 }

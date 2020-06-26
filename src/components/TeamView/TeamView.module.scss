@@ -58,6 +58,7 @@
 .reviewInfo {
   display: flex;
   margin-top: 10px;
+  align-items: center;
 }
 
 .countryInfo {
@@ -68,11 +69,21 @@
 
 .reviewText {
   margin-left: 5px;
+  display: flex;
+  align-items: center;
 
   span {
-    text-decoration: underline;
     cursor: pointer;
   }
+}
+
+.or {
+  margin: 0 4px;
+}
+
+.underlineButton {
+  text-decoration: underline;
+  font-weight: bold;
 }
 
 .clubInfo {
@@ -124,6 +135,7 @@
   padding: 10px 0;
   background-color: var(--yellow);
   margin-top: 20px;
+  text-align: center;
 }
 
 .countryImage {

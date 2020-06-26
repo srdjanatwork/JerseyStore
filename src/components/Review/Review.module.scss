@@ -1,0 +1,43 @@
+.container {
+  box-sizing: border-box;
+  height: 100%;
+  padding: 30px;
+  position: relative;
+}
+
+.title {
+  font-size: 25px;
+  margin-bottom: 50px;
+}
+
+.img {
+  height: 300px;
+  position: absolute;
+  right: 130px;
+  top: 100px;
+}
+
+.buttonWrapper {
+  display: flex;
+}
+
+.reviewTitle {
+  display: block;
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
+
+.input {
+  padding: 10px;
+}
+
+.inputWrapper {
+  display: flex;
+}
+
+.button {
+  margin-top: 20px;
+  padding: 10px 0;
+  width: 70px;
+  text-align: center;
+}

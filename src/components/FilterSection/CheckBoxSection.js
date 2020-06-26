@@ -94,7 +94,6 @@ const CheckBoxSection = ({ data, label, reviewIcon, isCountryFilter, handleFilte
         }
         { isCountryFilter &&
           <Clickable
-            tag='button'
             className={ styles.loadMoreButton }
             onClick={ expandFilter }
             transparent

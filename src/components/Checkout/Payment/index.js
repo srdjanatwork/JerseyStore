@@ -3,9 +3,10 @@ import { paymentType } from 'lib/paymentType';
 import PaymentMethod from '../PaymentMethod';
 import Clickable from 'components/shared/Clickable';
 import CardForm from 'components/Checkout/CardForm';
+import OrderSummary from 'components/Checkout/OrderSummary';
 import styles from './Payment.module.scss';
 
-const Payment = () => {
+const Payment = ({ currentUser }) => {
   const [selectedType, setType] = useState({
     card: false,
     paypal: false
@@ -57,9 +58,7 @@ const Payment = () => {
           />
         </div>
       }
-      { selectedType.card &&
-        <CardForm />
-      }
+      { selectedType.card && <CardForm /> }
       { (selectedType.card || selectedType.paypal) &&
         <Clickable
           className={ styles.button }
@@ -71,6 +70,13 @@ const Payment = () => {
       { selectedType.paypal &&
         <span className={ styles.text }>You will be redirected to Paypal after clicking Pay Now.</span>
       }
+      <OrderSummary currentUser={ currentUser } />
+      <Clickable
+        disabled
+        className={ styles.payButton }
+      >
+        Pay now
+      </Clickable>
     </div>
   );
 }

@@ -5,5 +5,6 @@ export const RouteList = {
   register: '/register',
   emailVerified: '/email-verified',
   checkout: '/checkout',
+  team: '/team',
   test: '/test'
 };

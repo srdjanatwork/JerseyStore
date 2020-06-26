@@ -5,8 +5,13 @@ import Clickable from 'components/shared/Clickable';
 import Input from 'components/shared/Input';
 import styles from './Orders.module.scss';
 
-const Orders = ({ currentUser }) => {
+const Orders = ({ currentUser, nextStep }) => {
   const onChangeHandler = () => {};
+
+  const goToNextStep = () => {
+    nextStep(true);
+  }
+
   return (
     <ShoppingCartConsumer>
       {({ cartInfo  }) => {
@@ -25,7 +30,8 @@ const Orders = ({ currentUser }) => {
                     <span className={ styles.teamName }>{ jersey.name }</span>
                     <span>Qty: { jersey.jerseyCount }</span>
                     <span className={ styles.price }>
-                      Price: { jersey.discount ? jersey.jerseyCount * jersey.discount : jersey.jerseyCount * jersey.price }€
+                      Price:
+                      <span className={ styles.bold }>{ jersey.discount ? jersey.jerseyCount * jersey.discount : jersey.jerseyCount * jersey.price }€</span>
                     </span>
                   </div>
                 </div>
@@ -63,7 +69,11 @@ const Orders = ({ currentUser }) => {
               </Clickable>
               <span className={ styles.info }>Use your PayPal account to complete the transaction and avoid entering billing or delivery information.</span>
               <span className={ styles.label }>Or, for other payment method</span>
-              <Clickable className={ styles.continueButton }>
+              <Clickable
+                className={ styles.continueButton }
+                disabled={ false }
+                onClick={ goToNextStep }
+              >
                 Continue to delivery address
               </Clickable>
             </div>

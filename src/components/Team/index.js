@@ -1,4 +1,7 @@
 import React, { useState, useContext } from 'react';
+import { Link } from 'react-router-dom';
+import { withRouter } from "react-router";
+import { RouteList } from 'lib/routes';
 import ShoppingCartContext from 'utils/context/ShoppingCartProvider';
 import Rating from 'components/Rating'
 import Modal from 'components/shared/Modal';
@@ -6,7 +9,7 @@ import TeamView from 'components/TeamView';
 import Clickable from 'components/shared/Clickable';
 import styles from './Team.module.scss';
 
-const Team = ({ team }) => {
+const Team = ({ team, history }) => {
   const [isOpen, setIsOpen] = useState(false);
   const {
     actions: { addToCart }
@@ -25,6 +28,13 @@ const Team = ({ team }) => {
   const purchase = () => {
     const startJerseyCount = 1;
     addToCart(team, startJerseyCount);
+  }
+
+  const viewDetails = () => {
+    history.push({
+      pathname: `${ RouteList.team }/${ team.slug }`,
+      state: { team }
+    });
   }
 
   return (
@@ -48,7 +58,12 @@ const Team = ({ team }) => {
       </div>
       <div>
         <Clickable
-          tag='button'
+          onClick={ viewDetails }
+          className={ styles.button }
+        >
+         View details
+        </Clickable>
+        <Clickable
           onClick={ purchase }
           className={ styles.button }
         >
@@ -73,7 +88,7 @@ const Team = ({ team }) => {
   );
 }
 
-export default Team;
+export default withRouter(Team);
 
 // localStorage.setItem('testObject', JSON.stringify(testObject));
 //
