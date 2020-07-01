@@ -2,11 +2,12 @@
 
 .container {
   display: flex;
+  flex-direction: column;
 }
 
 .imageWrapper {
-  height: 350px;
-  width: 350px;
+  height: 300px;
+  width: 300px;
   padding-top: 50px;
   flex-grow: 0;
 
@@ -152,4 +153,8 @@
 .countryFlagWrapper {
   display: flex;
   align-items: center;
+}
+
+.wrapper {
+  display: flex;
 }

@@ -46,7 +46,9 @@ const App = () => {
                   <Checkout />
                 </Route>
                 <Route path={ `${RouteList.team}/:id` }>
-                  <Team />
+                  <AuthContextConsumer>
+                  {({ currentUser }) => <Team currentUser={ currentUser } /> }
+                  </AuthContextConsumer>
                 </Route>
                 <Route path={ RouteList.test }>
                   <Test />

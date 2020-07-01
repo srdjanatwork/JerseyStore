@@ -6,7 +6,7 @@ import VisibilityOffIcon from '@material-ui/icons/VisibilityOff'
 import { RouteList } from 'lib/routes';
 import { Collection } from 'lib/collection';
 import { uploadImage } from 'utils/helpers/image';
-import { setDbCollection } from 'utils/helpers/database';
+import { setUserCollection } from 'utils/helpers/users-database';
 import { getVaucher } from 'utils/helpers/vaucherGenerator';
 import Input from 'components/shared/Input';
 import Clickable from 'components/shared/Clickable';
@@ -53,7 +53,7 @@ const Register = ({ history }) => {
           const promoCode = getVaucher();
 
           // set database collection helper
-          setDbCollection(
+          setUserCollection(
             db, Collection.users, userUid, getValues('firstName'), getValues('lastName'), getValues('email'), promoCode
           );
 

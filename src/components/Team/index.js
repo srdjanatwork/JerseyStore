@@ -1,5 +1,4 @@
 import React, { useState, useContext } from 'react';
-import { Link } from 'react-router-dom';
 import { withRouter } from "react-router";
 import { RouteList } from 'lib/routes';
 import ShoppingCartContext from 'utils/context/ShoppingCartProvider';
@@ -11,9 +10,7 @@ import styles from './Team.module.scss';
 
 const Team = ({ team, history }) => {
   const [isOpen, setIsOpen] = useState(false);
-  const {
-    actions: { addToCart }
-  } = useContext(ShoppingCartContext);
+  const { actions: { addToCart } } = useContext(ShoppingCartContext);
 
   const openTeamModal = () => {
     document.body.classList.add('modal-open');

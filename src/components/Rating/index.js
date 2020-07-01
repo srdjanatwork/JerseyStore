@@ -30,8 +30,9 @@ const Rating = ({ rating, tag: Tag = tagType.div, className, type = tagType.div,
   }
 
   const style = {
-    'display': 'flex'
-  }
+    'display': 'flex',
+    'justifyContent': type === tagType.div ? 'center' : 'inherit'
+  };
 
   return (
     <div style={ style }>

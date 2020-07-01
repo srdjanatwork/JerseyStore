@@ -6,7 +6,7 @@ import { RouteList } from 'lib/routes';
 import { INPUT_NAME } from 'lib/inputName';
 import { Collection } from 'lib/collection';
 import { getImage, uploadImage } from 'utils/helpers/image';
-import { updateDbUserCollection } from 'utils/helpers/database';
+import { updateUserCollection } from 'utils/helpers/users-database';
 import Clickable from 'components/shared/Clickable';
 import ProfileInfoControl from 'components/ProfileInfoControl';
 import ProfileAvatar from 'components/ProfileAvatar';
@@ -47,7 +47,7 @@ const Profile = ({ currentUser, imgSrc, history, closeModal }) => {
       user.updateProfile({
        displayName: values.fullName ? values.fullName : user.displayName,
       })
-      updateDbUserCollection(
+      updateUserCollection(
         db, Collection.users, userUid, 'displayName', values.fullName, currentUser
       );
     }
@@ -56,7 +56,7 @@ const Profile = ({ currentUser, imgSrc, history, closeModal }) => {
       user.updateEmail(values.email).then(() => {
         setMsg(`Verification link sent to ${values.email}`);
         user.sendEmailVerification();
-        updateDbUserCollection(
+        updateUserCollection(
           db, Collection.users, userUid, 'email', values.email, currentUser
         );
       }).catch(error => setError(error.message));

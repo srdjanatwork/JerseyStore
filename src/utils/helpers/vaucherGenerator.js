@@ -12,3 +12,13 @@ export const getVaucher = () => {
 
   return coupon;
 }
+
+export const getCommentID = () => {
+  const commentRandomID = voucher_codes.generate({
+    length: 5,
+    count: 1,
+    charset: voucher_codes.charset('numbers')
+  });
+
+  return commentRandomID;
+}

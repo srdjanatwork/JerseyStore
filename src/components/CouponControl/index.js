@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import Clickable from 'components/shared/Clickable';
 import Input from 'components/shared/Input';
 import { Collection } from 'lib/collection';
-import { updateDbUserCollection } from 'utils/helpers/database';
+import { updateUserCollection } from 'utils/helpers/users-database';
 import app from '../../base';
 import styles from './CouponControl.module.scss';
 
@@ -25,7 +25,7 @@ const CouponControl = ({ currentUser, cartInfo }) => {
       hash: currentUser.coupon.hash[0],
       applied: true
     }
-    updateDbUserCollection(
+    updateUserCollection(
       db, Collection.users, userUid, 'coupon', coupon, currentUser
     );
   };

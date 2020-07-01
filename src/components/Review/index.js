@@ -1,17 +1,41 @@
 import React, { useState } from 'react';
+import moment from 'moment';
 import { tagType } from 'lib/tagTypes';
+import { Collection } from 'lib/collection';
+import { setCommentsCollection } from 'utils/helpers/comments-database';
+import { getCommentID } from 'utils/helpers/vaucherGenerator';
 import Rating from 'components/Rating';
 import Clickable from 'components/shared/Clickable';
 import Input from 'components/shared/Input'
 import styles from './Review.module.scss';
 
-const Review = ({ jersey }) => {
+const Review = ({ team, currentUser }) => {
   const [value, setValue] = useState('');
   const [rate, setRate] = useState();
+  const [error, setError] = useState();
+  const isNotLoggedIn = Object.keys(currentUser).length === 0 && currentUser.constructor === Object
 
-  const onSubmit = (event) => {
-    event.preventDefault();
-    console.log('---', value, rate);
+  const onSubmit = () => {
+    let date = moment().format('MMMM Do YYYY');
+    const commentIDArr = getCommentID();
+    const commentID = commentIDArr.join('');
+
+    if (value !== '' && !isNotLoggedIn) {
+      setCommentsCollection(
+        Collection.comments,
+        commentID,
+        currentUser,
+        team.id,
+        null,
+        true,
+        value,
+        date
+      );
+    }
+
+    if (isNotLoggedIn) {
+      setError('You must be logged in');
+    }
   }
 
   const setRating = (rating) => {
@@ -20,10 +44,16 @@ const Review = ({ jersey }) => {
 
   const onChangeHandler = (event) => {
     setValue(event.target.value);
+
+    if (event.target.value.length <= 3) {
+      setError('Text is too short (minimum is 4 characters)')
+    } else {
+      setError('');
+    }
   }
 
   return (
-    <form onSubmit={ onSubmit } className={ styles.container }>
+    <div className={ styles.container }>
       <h1 className={ styles.title }>Please share your experience</h1>
       <span>Overall rating*</span>
       <Rating
@@ -44,14 +74,16 @@ const Review = ({ jersey }) => {
           'cols': '50'
         }}
       />
-      <img className={ styles.img } src={ jersey } alt='' />
+      <span className={ styles.error }>{ error }</span>
+      <img className={ styles.img } src={ team.homeKit } alt='' />
       <Clickable
         disabled={ value ===  '' || !rate }
         className={ styles.button }
+        onClick={ onSubmit }
       >
         Submit
       </Clickable>
-    </form>
+    </div>
   );
 }
 

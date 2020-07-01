@@ -1,4 +1,4 @@
-export const setDbCollection = (db, collectionName, userID, firstName, lastName, email, coupon) => {
+export const setUserCollection = (db, collectionName, userID, firstName, lastName, email, coupon) => {
   db.collection(collectionName).doc(userID).set({
     displayName: `${firstName} ${lastName}`,
     email: email,
@@ -6,7 +6,7 @@ export const setDbCollection = (db, collectionName, userID, firstName, lastName,
   });
 };
 
-export const updateDbUserCollection = (db, collectionName, userID, field, updatedValue, user) => {
+export const updateUserCollection = (db, collectionName, userID, field, updatedValue, user) => {
   db.collection(collectionName).doc(userID).update({
     displayName: field === 'displayName' ? updatedValue : user.displayName,
     email: field === 'email' ? updatedValue : user.email,
